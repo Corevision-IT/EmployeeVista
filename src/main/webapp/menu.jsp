@@ -17,12 +17,12 @@
 			Menu menu = listIteratorMenu.next();
 			String menuName = menu.getMenuName();
 			String urlPath = menu.getUrlPath();
-			
+			String icon = menu.getIcon();
 		%>
 		<li class="nav-item">
 			<a class="nav-link" href="<%=urlPath %>"> 
 				<span class="menu-title"><%=menuName %></span> 
-				<i class="mdi mdi-home menu-icon"></i>
+				<i class="<%=icon %> menu-icon"></i>
 			</a>
 		</li>
 		<%

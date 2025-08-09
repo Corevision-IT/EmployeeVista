@@ -105,7 +105,7 @@ public class EmpVistaUtils {
 				menu.setMenuId(rs.getInt("menuId"));
 				menu.setMenuName(rs.getString("menuName"));
 				menu.setUrlPath(rs.getString("urlPath"));
-				
+				menu.setIcon(rs.getString("icon"));
 				menuList.add(menu);
 				
 			}

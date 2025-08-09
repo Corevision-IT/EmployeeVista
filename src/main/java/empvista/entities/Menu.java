@@ -6,6 +6,13 @@ public class Menu {
 	private String menuName;
 	private String urlPath;
 	private int roleId;
+	private String icon;
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	public int getMenuId() {
 		return menuId;
 	}
