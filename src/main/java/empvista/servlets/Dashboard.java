@@ -14,16 +14,16 @@ import empvista.entities.User;
 import empvista.services.UserService;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class Dashboard
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/Dashboard")
+public class Dashboard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Dashboard() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,50 +32,25 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Our goal is to minimise lines of code in servlet
+		 
+		//Check is user is is valid or not
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("USER");
+		int loggedIn = user.getLoggedIn();
 		
-
-		int validUser = 0;
-		
-		//Step - 1. Gather information sent from browser / frontend 
-		String emailAddress = request.getParameter("emailAddress");
-		String password = request.getParameter("password");
-		
-		//Step-2. We should try to bind these frontend variables to an relevant entity
-		User user = new User();
-		user.setEmailAddress(emailAddress);
-		user.setPassword(password);
-		
-		//Step-3. We should call our service class to do the work
-		user = UserService.validateUser(user);
-		
-		validUser = user.getLoggedIn();
-		
-		if(validUser ==1)
+		if(loggedIn == 1)
 		{
-			
-			HttpSession session = request.getSession();
-			
-			session.setAttribute("USER", user);
-			ArrayList menuList=UserService.generateMenu(user.getUserRoleId());
-			
-			session.setAttribute("MenuList", menuList);
-			
 			request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+			
 		}
-		else
-		{
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-		}
-		
-		
+		 
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		 
 		doGet(request, response);
 	}
 
