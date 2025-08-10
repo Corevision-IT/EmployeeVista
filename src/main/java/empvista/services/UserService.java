@@ -2,7 +2,6 @@ package empvista.services;
 
 import java.util.ArrayList;
 
-import empvista.entities.Menu;
 import empvista.entities.User;
 import empvista.utils.EmpVistaUtils;
 

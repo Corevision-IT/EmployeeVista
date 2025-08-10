@@ -1,6 +1,8 @@
 package empvista.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import empvista.entities.User;
+import empvista.services.EmployeeServices;
 
 /**
  * Servlet implementation class Employee
@@ -34,11 +37,24 @@ public class Employee extends HttpServlet {
 		// Check is user is is valid or not
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("USER");
+		
+		if(user==null) request.getRequestDispatcher("login.jsp").forward(request, response);
+		
 		int loggedIn = user.getLoggedIn();
 
 		if (loggedIn == 1) {
+			
+			// get the list of employees from db using service class
+			ArrayList empList = EmployeeServices.getEmployeeList();
+			
+			request.setAttribute("EMPLIST", empList);
+			
 			request.getRequestDispatcher("employeeList.jsp").forward(request, response);
 
+		}
+		else
+		{
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
 

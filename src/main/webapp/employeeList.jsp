@@ -117,7 +117,7 @@ ListIterator<Menu> listIteratorMenu = menuList.listIterator();
 								class="mdi mdi-cached me-2 text-success"></i> Activity Log
 							</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#"> <i
+							<a class="dropdown-item" href="Logout"> <i
 								class="mdi mdi-logout me-2 text-primary"></i> Signout
 							</a>
 						</div></li>
@@ -264,9 +264,9 @@ ListIterator<Menu> listIteratorMenu = menuList.listIterator();
 						</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item active" aria-current="page"><span></span>Overview
-									<i
-									class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+								<li class="breadcrumb-item active" aria-current="page"><span></span>
+									<button>Add Employee</button>
+									<i class="mdi mdi-account-multiple-plus"></i>
 								</li>
 							</ul>
 						</nav>
