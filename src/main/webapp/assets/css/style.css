@@ -25032,11 +25032,13 @@ dl li {
     margin: auto;
   }
 }
-.auth .brand-logo {
-  margin-bottom: 2rem;
+.auth .brand-logo-new {
+  margin-bottom: 5rem;
 }
-.auth .brand-logo img {
-  width: 150px;
+.auth .brand-logo-new img {
+ max-height: 60px;   /* fits inside navbar height */
+  width: auto;        /* keeps aspect ratio */
+  padding: 5px 10px;  /* optional breathing space */
 }
 .auth form .form-group {
   margin-bottom: 1.5rem;

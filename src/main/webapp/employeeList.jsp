@@ -11,10 +11,10 @@
 User user = (User) request.getSession().getAttribute("USER"); // type casting
 String userName = user.getUserName();
 String profilePic = user.getProfilePicName();
-String roleName= user.getRoleName();
-ArrayList menuList=(ArrayList)request.getSession().getAttribute("MenuList");
+String roleName = user.getRoleName();
+ArrayList menuList = (ArrayList) request.getSession().getAttribute("MenuList");
 ListIterator<Menu> listIteratorMenu = menuList.listIterator();
-ArrayList empList=(ArrayList)request.getAttribute("EMPLIST");
+ArrayList empList = (ArrayList) request.getAttribute("EMPLIST");
 ListIterator<Employee> listIteratorEmp = empList.listIterator();
 %>
 
@@ -267,63 +267,88 @@ ListIterator<Employee> listIteratorEmp = empList.listIterator();
 						</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item active" aria-current="page"><span></span>									
-									<a href="AddEmployee"><button>Add Employee</button></a>
-									<i class="mdi mdi-account-multiple-plus"></i>
-								</li>
+								<li class="breadcrumb-item active" aria-current="page"><span></span>
+
+									<button type="button"
+										class="btn btn-sm btn-primary d-flex align-items-center gap-2"
+										onclick="window.location.href='AddEmployee';">
+										<i class="mdi mdi-account-multiple-plus"></i> <span>Add
+											Employee</span>
+									</button></li>
 							</ul>
 						</nav>
 					</div>
-					
+
 					<div class="row">
-    <div class="col-12 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                
-                <div class="table-responsive" style="overflow-y: auto; height: 350px;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Employee Name</th>
-                                <th>Gender</th>
-                                <th>Date Of Birth</th>
-                                <th>Email Address</th>
-                                <th>Phone Number</th>
-                                <th>Job Title</th>
-                                <th>Actions</th> <!-- Changed from Tracking ID -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <%while (listIteratorEmp.hasNext()) {
-                        	Employee emp = listIteratorEmp.next();
-                        	String name = emp.getName();
-                        	String gender = emp.getGender();
-                        	String dob = emp.getDob();
-                        	String email = emp.getEmail_id();
-                        	String phone = emp.getPhone_number();
-                        	String jobTitle = emp.getJob_title();                    	                        
-                        %>
-                            <tr>
-                                <td><img src="assets/images/faces/face4.jpg" class="me-2" alt="image"> <%=name %></td>
-                                <td><%=gender %></td>
-                                <td><label class="badge badge-gradient-success"><%=dob %></label></td>
-                                <td><%=email %></td>
-                                <td><%=phone %></td>
-                                <td><%=jobTitle %></td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary">Edit</button>
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                </td>
-                            </tr>
-                            
-                            <%} %>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+						<div class="col-12 grid-margin">
+							<div class="card">
+								<div class="card-body">
+
+									<div class="table-responsive"
+										style="overflow-y: auto; height: 350px;">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Employee Name</th>
+													<th>Gender</th>
+													<th>Date Of Birth</th>
+													<th>Email Address</th>
+													<th>Phone Number</th>
+													<th>Job Title</th>
+													<th>Hiring Date</th>
+													<th>Department</th>
+													<th>Employee Type</th>
+													<th>Status</th>
+													<th>Working Hours</th>
+													<th>Actions</th>
+													<!-- Changed from Tracking ID -->
+												</tr>
+											</thead>
+											<tbody>
+												<%
+												while (listIteratorEmp.hasNext()) {
+													Employee emp = listIteratorEmp.next();
+													String name = emp.getName();
+													String gender = emp.getGender();
+													String dob = emp.getDob();
+													String email = emp.getEmail_id();
+													String phone = emp.getPhone_number();
+													String jobTitle = emp.getJob_title();
+													String Hire_Date = emp.getHire_date();
+													String Department = emp.getDepartment();
+													String Employee_Type = emp.getEmployee_type();
+													String Employee_status = emp.getEmp_status();
+													String Work_Hours = emp.getWork_hour();
+												%>
+												<tr>
+													<td><img src="assets/images/faces/face4.jpg"
+														class="me-2" alt="image"> <%=name%></td>
+													<td><%=gender%></td>
+													<td><%=dob%></td>
+													<td><%=email%></td>
+													<td><%=phone%></td>
+													<td><%=jobTitle%></td>
+													<td><%=Hire_Date%></td>
+													<td><%=Department%></td>
+													<td><%=Employee_Type%></td>
+													<td><%=Employee_status%></td>
+													<td><%=Work_Hours%></td>
+													<td>
+														<button class="btn btn-sm btn-primary">Edit</button>
+														<button class="btn btn-sm btn-danger">Delete</button>
+													</td>
+												</tr>
+
+												<%
+												}
+												%>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
 				</div>
 				<!-- content-wrapper ends -->

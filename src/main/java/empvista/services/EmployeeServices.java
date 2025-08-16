@@ -66,6 +66,12 @@ public class EmployeeServices {
 				emp.setPhone_number(rs.getString("phone_number"));
 				emp.setJob_title(rs.getString("job_title"));
 				
+				emp.setHire_date(rs.getString("hire_date"));
+				emp.setDepartment(rs.getString("department"));
+				emp.setEmployee_type(rs.getString("employee_type"));
+				emp.setEmp_status(rs.getString("status"));
+				emp.setWork_hour(rs.getString("Work_Hours"));
+				
 //				System.out.println(emp.toString());
 				
 				empList.add(emp);

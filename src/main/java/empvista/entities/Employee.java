@@ -18,7 +18,7 @@ public class Employee {
 	private String rating;
 	private String enrollement;
 	private String work_hour;
-	private String contact;
+	
 	public int getEmployee_id() {
 		return employee_id;
 	}
@@ -115,12 +115,6 @@ public class Employee {
 	public void setWork_hour(String work_hour) {
 		this.work_hour = work_hour;
 	}
-	public String getContact() {
-		return contact;
-	}
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
 	@Override
 	public String toString() {
 		return "Employee [employee_id=" + employee_id + ", name=" + name + ", gender=" + gender + ", dob=" + dob
@@ -128,8 +122,10 @@ public class Employee {
 				+ ", job_title=" + job_title + ", manager=" + manager + ", hire_date=" + hire_date
 				+ ", salary_structure=" + salary_structure + ", emp_status=" + emp_status + ", employee_type="
 				+ employee_type + ", rating=" + rating + ", enrollement=" + enrollement + ", work_hour=" + work_hour
-				+ ", contact=" + contact + "]";
+				+ "]";
 	}
+	
+	
 	
 	
 

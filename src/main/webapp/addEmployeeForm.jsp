@@ -255,6 +255,8 @@ ListIterator<Menu> listIteratorMenu = menuList.listIterator();
 			<!-- end of menu.jsp -->
 			<!-- partial -->
 			<%@ include file="addEmployee.jsp"%>
+			
+			
 		</div>
 		<!-- page-body-wrapper ends -->
 	</div>

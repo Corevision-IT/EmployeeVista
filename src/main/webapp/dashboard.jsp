@@ -10,8 +10,8 @@
 User user = (User) request.getSession().getAttribute("USER"); // type casting
 String userName = user.getUserName();
 String profilePic = user.getProfilePicName();
-String roleName= user.getRoleName();
-ArrayList menuList=(ArrayList)request.getSession().getAttribute("MenuList");
+String roleName = user.getRoleName();
+ArrayList menuList = (ArrayList) request.getSession().getAttribute("MenuList");
 ListIterator<Menu> listIteratorMenu = menuList.listIterator();
 %>
 
@@ -75,12 +75,12 @@ ListIterator<Menu> listIteratorMenu = menuList.listIterator();
 		</div>
 		<!-- partial:partials/_navbar.html -->
 		<nav
-			class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+			class="navbar default-layout-navbar col-lg-35 col-35 p-0 fixed-top d-flex flex-row">
 			<div
 				class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-				<a class="navbar-brand brand-logo" href="index.html"><img
-					src="assets/images/logo.svg" alt="logo" /></a> <a
-					class="navbar-brand brand-logo-mini" href="index.html"><img
+				<a class="navbar-brand brand-logo-new" href="index.html"> <img
+					src="assets/images/logo-new.svg" class="logo-new" alt="logo" />
+				</a> <a class="navbar-brand brand-logo-mini" href="index.html"><img
 					src="assets/images/logo-mini.svg" alt="logo" /></a>
 			</div>
 			<div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -340,67 +340,7 @@ ListIterator<Menu> listIteratorMenu = menuList.listIterator();
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-12 grid-margin">
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">Recent Tickets</h4>
-									<div class="table-responsive">
-										<table class="table">
-											<thead>
-												<tr>
-													<th>Assignee</th>
-													<th>Subject</th>
-													<th>Status</th>
-													<th>Last Update</th>
-													<th>Tracking ID</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td><img src="assets/images/faces/face1.jpg"
-														class="me-2" alt="image"> David Grey</td>
-													<td>Fund is not recieved</td>
-													<td><label class="badge badge-gradient-success">DONE</label>
-													</td>
-													<td>Dec 5, 2017</td>
-													<td>WD-12345</td>
-												</tr>
-												<tr>
-													<td><img src="assets/images/faces/face2.jpg"
-														class="me-2" alt="image"> Stella Johnson</td>
-													<td>High loading time</td>
-													<td><label class="badge badge-gradient-warning">PROGRESS</label>
-													</td>
-													<td>Dec 12, 2017</td>
-													<td>WD-12346</td>
-												</tr>
-												<tr>
-													<td><img src="assets/images/faces/face3.jpg"
-														class="me-2" alt="image"> Marina Michel</td>
-													<td>Website down for one week</td>
-													<td><label class="badge badge-gradient-info">ON
-															HOLD</label></td>
-													<td>Dec 16, 2017</td>
-													<td>WD-12347</td>
-												</tr>
-												<tr>
-													<td><img src="assets/images/faces/face4.jpg"
-														class="me-2" alt="image"> John Doe</td>
-													<td>Loosing control on server</td>
-													<td><label class="badge badge-gradient-danger">REJECTED</label>
-													</td>
-													<td>Dec 3, 2017</td>
-													<td>WD-12348</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+					
 				<!-- content-wrapper ends -->
 				<!-- partial:partials/_footer.html -->
 				<footer class="footer">
