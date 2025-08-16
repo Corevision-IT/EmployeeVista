@@ -12,19 +12,19 @@ import javax.servlet.http.HttpSession;
 
 import empvista.entities.CustomMessage;
 import empvista.entities.User;
-import empvista.services.UserService;
+import empvista.services.EmployeeServices;
 
 /**
- * Servlet implementation class Dashboard
+ * Servlet implementation class AddEmployee
  */
-@WebServlet("/Dashboard")
-public class Dashboard extends HttpServlet {
+@WebServlet("/AddEmployee")
+public class AddEmployee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Dashboard() {
+    public AddEmployee() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,19 +33,31 @@ public class Dashboard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
-		//Check is user is is valid or not
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("USER");
-		int loggedIn = user.getLoggedIn();
 		
-		if(loggedIn == 1)
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("USER");
+		int loggedIn = 0;
+		
+		if(user==null) 
+			{
+				request.getRequestDispatcher("login.jsp").forward(request, response);
+			}
+		else
 		{
-			CustomMessage customMessage = new CustomMessage();
-			customMessage.setUserMessage("You are successfully logged in");
-			request.setAttribute("UserMessage", customMessage);
-			request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+			loggedIn = user.getLoggedIn();
+		}
+		
+		
+
+		if (loggedIn == 1) {
 			
+			// get the list of employees from db using service class
+			ArrayList empList = EmployeeServices.getEmployeeList();
+			
+			request.setAttribute("EMPLIST", empList);
+			
+			request.getRequestDispatcher("addEmployeeForm.jsp").forward(request, response);
+
 		}
 		else
 		{
@@ -54,14 +66,13 @@ public class Dashboard extends HttpServlet {
 			request.setAttribute("UserMessage", customMessage);
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
-		 
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

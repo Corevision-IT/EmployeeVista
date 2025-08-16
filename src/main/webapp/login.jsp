@@ -2,7 +2,13 @@
 <%@ page import="empvista.entities.CustomMessage"%>
 <%
 CustomMessage customMessage = (CustomMessage) request.getAttribute("UserMessage"); // type casting
-String userMessage = customMessage.getUserMessage();
+String userMessage = "";
+if (customMessage !=null)
+{
+	userMessage = customMessage.getUserMessage();
+}
+
+	
 %>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">

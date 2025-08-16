@@ -121,5 +121,16 @@ public class Employee {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
+	@Override
+	public String toString() {
+		return "Employee [employee_id=" + employee_id + ", name=" + name + ", gender=" + gender + ", dob=" + dob
+				+ ", email_id=" + email_id + ", phone_number=" + phone_number + ", department=" + department
+				+ ", job_title=" + job_title + ", manager=" + manager + ", hire_date=" + hire_date
+				+ ", salary_structure=" + salary_structure + ", emp_status=" + emp_status + ", employee_type="
+				+ employee_type + ", rating=" + rating + ", enrollement=" + enrollement + ", work_hour=" + work_hour
+				+ ", contact=" + contact + "]";
+	}
+	
+	
 
 }

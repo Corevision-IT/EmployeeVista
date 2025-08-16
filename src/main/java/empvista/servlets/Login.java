@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import empvista.entities.CustomMessage;
 import empvista.entities.User;
 import empvista.services.UserService;
 
@@ -53,6 +54,10 @@ public class Login extends HttpServlet {
 		
 		if(validUser ==1)
 		{
+			
+			CustomMessage customMessage = new CustomMessage();
+			customMessage.setUserMessage("You are successfully logged in");
+			request.setAttribute("UserMessage", customMessage);
 			
 			HttpSession session = request.getSession();
 			

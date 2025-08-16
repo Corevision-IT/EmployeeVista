@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import empvista.entities.CustomMessage;
 import empvista.entities.User;
 import empvista.services.EmployeeServices;
 
@@ -37,10 +38,18 @@ public class Employee extends HttpServlet {
 		// Check is user is is valid or not
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("USER");
+		int loggedIn = 0;
 		
-		if(user==null) request.getRequestDispatcher("login.jsp").forward(request, response);
+		if(user==null) 
+			{
+				request.getRequestDispatcher("login.jsp").forward(request, response);
+			}
+		else
+		{
+			loggedIn = user.getLoggedIn();
+		}
 		
-		int loggedIn = user.getLoggedIn();
+		
 
 		if (loggedIn == 1) {
 			
@@ -54,6 +63,9 @@ public class Employee extends HttpServlet {
 		}
 		else
 		{
+			CustomMessage customMessage = new CustomMessage();
+			customMessage.setUserMessage("You are successfully logged out/n Please login again to uset the application");
+			request.setAttribute("UserMessage", customMessage);
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}

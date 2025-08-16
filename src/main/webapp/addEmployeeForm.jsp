@@ -6,7 +6,6 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.ListIterator"%>
 <%@ page import="empvista.entities.Menu"%>
-<%@ page import="empvista.entities.Employee"%>
 <%
 User user = (User) request.getSession().getAttribute("USER"); // type casting
 String userName = user.getUserName();
@@ -14,8 +13,6 @@ String profilePic = user.getProfilePicName();
 String roleName= user.getRoleName();
 ArrayList menuList=(ArrayList)request.getSession().getAttribute("MenuList");
 ListIterator<Menu> listIteratorMenu = menuList.listIterator();
-ArrayList empList=(ArrayList)request.getAttribute("EMPLIST");
-ListIterator<Employee> listIteratorEmp = empList.listIterator();
 %>
 
 
@@ -257,93 +254,7 @@ ListIterator<Employee> listIteratorEmp = empList.listIterator();
 			<%@ include file="menu.jsp"%>
 			<!-- end of menu.jsp -->
 			<!-- partial -->
-			<div class="main-panel">
-				<div class="content-wrapper">
-					<div class="page-header">
-						<h3 class="page-title">
-							<span class="page-title-icon bg-gradient-primary text-white me-2">
-								<i class="mdi mdi-home"></i>
-							</span> Employee List
-						</h3>
-						<nav aria-label="breadcrumb">
-							<ul class="breadcrumb">
-								<li class="breadcrumb-item active" aria-current="page"><span></span>									
-									<a href="AddEmployee"><button>Add Employee</button></a>
-									<i class="mdi mdi-account-multiple-plus"></i>
-								</li>
-							</ul>
-						</nav>
-					</div>
-					
-					<div class="row">
-    <div class="col-12 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                
-                <div class="table-responsive" style="overflow-y: auto; height: 350px;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Employee Name</th>
-                                <th>Gender</th>
-                                <th>Date Of Birth</th>
-                                <th>Email Address</th>
-                                <th>Phone Number</th>
-                                <th>Job Title</th>
-                                <th>Actions</th> <!-- Changed from Tracking ID -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <%while (listIteratorEmp.hasNext()) {
-                        	Employee emp = listIteratorEmp.next();
-                        	String name = emp.getName();
-                        	String gender = emp.getGender();
-                        	String dob = emp.getDob();
-                        	String email = emp.getEmail_id();
-                        	String phone = emp.getPhone_number();
-                        	String jobTitle = emp.getJob_title();                    	                        
-                        %>
-                            <tr>
-                                <td><img src="assets/images/faces/face4.jpg" class="me-2" alt="image"> <%=name %></td>
-                                <td><%=gender %></td>
-                                <td><label class="badge badge-gradient-success"><%=dob %></label></td>
-                                <td><%=email %></td>
-                                <td><%=phone %></td>
-                                <td><%=jobTitle %></td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary">Edit</button>
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                </td>
-                            </tr>
-                            
-                            <%} %>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-				</div>
-				<!-- content-wrapper ends -->
-				<!-- partial:partials/_footer.html -->
-				<footer class="footer">
-					<div
-						class="d-sm-flex justify-content-center justify-content-sm-between">
-						<span
-							class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright
-							© 2023 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>.
-							All rights reserved.
-						</span> <span
-							class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted
-							& made with <i class="mdi mdi-heart text-danger"></i>
-						</span>
-					</div>
-				</footer>
-				<!-- partial -->
-			</div>
-			<!-- main-panel ends -->
+			<%@ include file="addEmployee.jsp"%>
 		</div>
 		<!-- page-body-wrapper ends -->
 	</div>
