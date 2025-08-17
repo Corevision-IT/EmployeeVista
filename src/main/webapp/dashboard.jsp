@@ -78,8 +78,8 @@ ListIterator<Menu> listIteratorMenu = menuList.listIterator();
 			class="navbar default-layout-navbar col-lg-35 col-35 p-0 fixed-top d-flex flex-row">
 			<div
 				class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-				<a class="navbar-brand brand-logo-new" href="index.html"> <img
-					src="assets/images/logo-new.svg" class="logo-new" alt="logo" />
+				<a class="navbar-brand brand-logo" href="index.html"> <img
+					src="assets/images/logo.svg" class="logo-new" alt="logo" />
 				</a> <a class="navbar-brand brand-logo-mini" href="index.html"><img
 					src="assets/images/logo-mini.svg" alt="logo" /></a>
 			</div>
