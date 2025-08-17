@@ -52,9 +52,12 @@ public class AddEmployee extends HttpServlet {
 		if (loggedIn == 1) {
 			
 			// get the list of employees from db using service class
-			ArrayList empList = EmployeeServices.getEmployeeList();
+//			ArrayList empList = EmployeeServices.getEmployeeList();
+//			
+//			request.setAttribute("EMPLIST", empList);
 			
-			request.setAttribute("EMPLIST", empList);
+			ArrayList deptList = EmployeeServices.getDepartmentList();
+			request.setAttribute("DEPTLIST", deptList);
 			
 			request.getRequestDispatcher("addEmployeeForm.jsp").forward(request, response);
 
