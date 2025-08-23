@@ -28,7 +28,7 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 				<br> <br>
 				<div class="table-responsive"
 					style="overflow-y: auto; height: 450px;">
-					<form action="AddEmployee" method="post">
+					<form action="SaveEmployee" method="post">
 
 
 						<div class="row g-3">
@@ -36,7 +36,7 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 							<div class="col-md-6">
 								<div class="form-floating">
 									<input name="name" type="text" class="form-control"
-										id="floatingName" placeholder="John Doe" required> <label
+										id="floatingName" placeholder="employee Name" required> <label
 										for="floatingName">Full Name</label>
 								</div>
 							</div>
@@ -231,14 +231,14 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 							<div class="row g-3 mb-2 skill">
 								<div class="col-md-6">
 									<div class="form-floating">
-										<input name="skillName" type="text" class="form-control"
-											placeholder="Skill Name" required> <label>Skill
+										<input  id="skillName"   name="skillName" type="text" class="form-control"
+											placeholder="Skill Name" required onchange="prepareSkillList()"> <label>Skill
 											Name</label>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-floating">
-										<select name="proficiency" class="form-select" required>
+										<select  id="proficiency"   name="proficiency" class="form-select" required onchange="prepareSkillList()">
 											<option value="" disabled selected>Select
 												Proficiency</option>
 											<option value="Beginner">Beginner</option>
@@ -289,6 +289,7 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 						Employee</button>
 				</div>
 
+				<input type="hidden" name="hdnSkills" value="" id="hdnSkills">
 
 				</form>
 			</main>
@@ -351,24 +352,25 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 	    const div = document.createElement('div');
 	    div.className = 'row g-3 mb-2 skill';
 	    div.innerHTML = `
-	      <div class="col-md-6">
-	        <div class="form-floating">
-	          <input name="skillName" type="text" class="form-control" placeholder="Skill Name" required>
-	          <label>Skill Name</label>
-	        </div>
-	      </div>
-	      <div class="col-md-6">
-	        <div class="form-floating">
-	          <select name="proficiency" class="form-select" required>
-	            <option value="" disabled selected>Select Proficiency</option>
-	            <option value="Beginner">Beginner</option>
-	            <option value="Intermediate">Intermediate</option>
-	            <option value="Advanced">Advanced</option>
-	            <option value="Expert">Expert</option>
-	          </select>
-	          <label>Proficiency Level</label>
-	        </div>
-	      </div>
+	    	<div class="col-md-6">
+			<div class="form-floating">
+				<input  id="skillName"   name="skillName" type="text" class="form-control"
+					placeholder="Skill Name" required onchange="prepareSkillList()"> <label>Skill
+					Name</label>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-floating">
+				<select  id="proficiency"   name="proficiency" class="form-select" required onchange="prepareSkillList()">
+					<option value="" disabled selected>Select
+						Proficiency</option>
+					<option value="Beginner">Beginner</option>
+					<option value="Intermediate">Intermediate</option>
+					<option value="Advanced">Advanced</option>
+					<option value="Expert">Expert</option>
+				</select> <label>Proficiency Level</label>
+			</div>
+		</div>
 	    `;
 	    container.appendChild(div);
 	  }
@@ -399,6 +401,28 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
                 console.error("Error loading JSP fragment:", error); 
             }
         });
+	  }
+	  
+	  function prepareSkillList()
+	  {
+		  const fieldName = document.getElementById('hdnSkills');
+		  
+		  skillName = document.getElementById('skillName').value;
+		  //alert("skillName = "+skillName);
+		  
+		  proficiency = document.getElementById('proficiency').value;
+		  //alert("proficiency = "+proficiency);
+		  
+		  let newEntry = skillName + "," + proficiency;
+
+		    if (fieldName.value) {
+		        fieldName.value += ";" + newEntry;
+		    } else {
+		        fieldName.value = newEntry;
+		    }
+		  
+		  
+		  alert("fieldName.value = "+fieldName.value);
 	  }
 	  
 </script>

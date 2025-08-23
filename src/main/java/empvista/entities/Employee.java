@@ -1,5 +1,7 @@
 package empvista.entities;
 
+import java.util.ArrayList;
+
 public class Employee {
 	
 	private int employee_id;
@@ -19,6 +21,30 @@ public class Employee {
 	private String enrollement;
 	private String work_hour;
 	private String profile_picture;
+	
+	private Enrollment enrollment;
+	
+	private ArrayList<Skill> skills;
+	
+	
+	
+	
+	
+	public Enrollment getEnrollment() {
+		return enrollment;
+	}
+	public void setEnrollment(Enrollment enrollment) {
+		this.enrollment = enrollment;
+	}
+	
+	
+	public ArrayList<Skill> getSkills() {
+		return skills;
+	}
+	public void setSkills(ArrayList<Skill> skills) {
+		this.skills = skills;
+	}
+	
 	
 	public String getProfile_picture() {
 		return profile_picture;
