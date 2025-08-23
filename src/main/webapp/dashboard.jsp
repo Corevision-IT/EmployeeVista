@@ -26,6 +26,10 @@ ListIterator<Menu> listIteratorMenu = menuList.listIterator();
 <title>Purple Admin</title>
 <!-- plugins:css -->
 <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+<link rel="stylesheet"
 	href="assets/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet"
 	href="assets/vendors/ti-icons/css/themify-icons.css">

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import empvista.entities.Department;
 import empvista.entities.Employee;
+import empvista.entities.Job_Types;
+import empvista.entities.Job_titles;
 import empvista.entities.Manager;
 import empvista.entities.Menu;
 import empvista.utils.DBConnector;
@@ -19,20 +21,34 @@ public class EmployeeServices {
 		ArrayList empList = new ArrayList();
 
 		// Modify the query to show values instead of ids
-		String sql = "SELECT \r\n" + "    emp.employee_id,\r\n" + "    emp.name,\r\n" + "    gen.gender,\r\n"
-				+ "    emp.dob,\r\n" + "    emp.email_id,\r\n" + "    emp.phone_number,\r\n" + "    j_t.job_title,\r\n"
-				+ "    emp.hire_date,    \r\n" + "    d.department,    \r\n" + "    e_t.employee_type,\r\n"
+		String sql = "SELECT \r\n"
+				+ "    emp.employee_id,\r\n"
+				+ "    emp.name,\r\n"
+				+ "    gen.gender,\r\n"
+				+ "    emp.dob,\r\n"
+				+ "    emp.email_id,\r\n"
+				+ "    emp.phone_number,\r\n"
+				+ "    j_t.job_title,\r\n"
+				+ "    emp.hire_date,\r\n"
+				+ "    emp.profile_picture,\r\n"
+				+ "    d.department,\r\n"
+				+ "    \r\n"
+				+ "    e_t.employee_type,\r\n"
 				+ "    e_s.status,\r\n"
 				+ "    (s_s.basic+s_s.bonus+s_s.conveyance_allowance+s_s.hra+s_s.special_allowance) AS Salary,\r\n"
 				+ "    CONCAT('Weekly Hours ',w_h.weekly_hours,'----',w_h.shift_type,'  Shift ') as Work_Hours,\r\n"
-				+ "    CONCAT(p_r.rating_score,'  --  ',p_r.comments) AS Performance    \r\n" + "FROM\r\n"
-				+ "    employees emp\r\n" + "    JOIN genders gen ON emp.gender_id = gen.gender_id\r\n"
+				+ "    CONCAT(p_r.rating_score,'  --  ',p_r.comments) AS Performance\r\n"
+				+ "    \r\n"
+				+ "FROM\r\n"
+				+ "    employees emp\r\n"
+				+ "    JOIN genders gen ON emp.gender_id = gen.gender_id\r\n"
 				+ "    JOIN job_title j_t ON emp.job_title_id = j_t.job_title_id\r\n"
 				+ "    JOIN departments d ON emp.department_id = d.department_id\r\n"
 				+ "    JOIN employees_type e_t ON emp.employee_type_id = e_t.employee_type_id\r\n"
 				+ "    JOIN salary_structures s_s ON s_s.salary_structure_id = emp.salary_structure_id\r\n"
 				+ "    JOIN performance_ratings p_r ON emp.rating_id = p_r.rating_id\r\n"
-				+ "    JOIN employment_status e_s ON emp.emp_status_id = e_s.emp_status_id\r\n" + "   \r\n"
+				+ "    JOIN employment_status e_s ON emp.emp_status_id = e_s.emp_status_id\r\n"
+				+ "   \r\n"
 				+ "    JOIN work_hours w_h ON w_h.employee_id= emp.employee_id";
 
 		DBConnector dBConnector = DBConnector.getInstance();
@@ -57,6 +73,7 @@ public class EmployeeServices {
 				emp.setJob_title(rs.getString("job_title"));
 
 				emp.setHire_date(rs.getString("hire_date"));
+				emp.setProfile_picture(rs.getString("profile_picture"));
 				emp.setDepartment(rs.getString("department"));
 				emp.setEmployee_type(rs.getString("employee_type"));
 				emp.setEmp_status(rs.getString("status"));
@@ -138,6 +155,64 @@ public class EmployeeServices {
 			e.printStackTrace();
 		}
 		return managerList;
+	}
+
+	public static ArrayList getTitleList() {
+		ArrayList jtitleList = new ArrayList();
+
+		// Modify the query to show values instead of ids
+		String sql = "SELECT * FROM job_title";
+		DBConnector dBConnector = DBConnector.getInstance();
+
+		try {
+
+			Connection con = dBConnector.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Job_titles j_title = new Job_titles();
+				j_title.setJob_title_id(rs.getInt("job_title_id"));
+				j_title.setJob_title(rs.getString("job_title"));
+
+				jtitleList.add(j_title);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return jtitleList;
+	}
+
+	public static ArrayList getTypeList() {
+		ArrayList jtypeList = new ArrayList();
+
+		// Modify the query to show values instead of ids
+		String sql = "SELECT * FROM employees_type";
+		DBConnector dBConnector = DBConnector.getInstance();
+
+		try {
+
+			Connection con = dBConnector.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Job_Types j_type = new Job_Types();
+				j_type.setEmployee_type_id(rs.getInt("employee_type_id"));
+				j_type.setEmployee_type(rs.getString("employee_type"));
+
+				jtypeList.add(j_type);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return jtypeList;
 	}
 
 }

@@ -58,7 +58,10 @@ public class AddEmployee extends HttpServlet {
 			
 			ArrayList deptList = EmployeeServices.getDepartmentList();
 			request.setAttribute("DEPTLIST", deptList);
-			
+			ArrayList jtitleList = EmployeeServices.getTitleList();
+			request.setAttribute("TITLELIST", jtitleList);
+			ArrayList jtypeList = EmployeeServices.getTypeList();
+			request.setAttribute("TYPELIST", jtypeList);
 			request.getRequestDispatcher("addEmployeeForm.jsp").forward(request, response);
 
 		}

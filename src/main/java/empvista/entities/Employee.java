@@ -18,7 +18,14 @@ public class Employee {
 	private String rating;
 	private String enrollement;
 	private String work_hour;
+	private String profile_picture;
 	
+	public String getProfile_picture() {
+		return profile_picture;
+	}
+	public void setProfile_picture(String profile_picture) {
+		this.profile_picture = profile_picture;
+	}
 	public int getEmployee_id() {
 		return employee_id;
 	}

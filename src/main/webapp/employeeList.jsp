@@ -315,13 +315,15 @@ ListIterator<Employee> listIteratorEmp = empList.listIterator();
 													String phone = emp.getPhone_number();
 													String jobTitle = emp.getJob_title();
 													String Hire_Date = emp.getHire_date();
+													String profilePicture = emp.getProfile_picture();
 													String Department = emp.getDepartment();
 													String Employee_Type = emp.getEmployee_type();
 													String Employee_status = emp.getEmp_status();
 													String Work_Hours = emp.getWork_hour();
+													
 												%>
 												<tr>
-													<td><img src="assets/images/faces/face4.jpg"
+													<td><img src="assets/images/faces/<%=profilePicture%>"
 														class="me-2" alt="image"> <%=name%></td>
 													<td><%=gender%></td>
 													<td><%=dob%></td>

@@ -1,11 +1,18 @@
 <%@ page import="empvista.entities.Department"%>
+<%@ page import="empvista.entities.Job_Types"%>
+<%@ page import="empvista.entities.Job_titles"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.ListIterator"%>
 <%
 ArrayList deptist = (ArrayList) request.getAttribute("DEPTLIST");
 ListIterator<Department> listIteratorDept = deptist.listIterator();
+ArrayList jtitleList = (ArrayList) request.getAttribute("TITLELIST");
+ListIterator<Job_titles> listIteratortitle = jtitleList.listIterator();
+ArrayList jtypeList = (ArrayList) request.getAttribute("TYPELIST");
+ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <div class="main-panel">
 	<div class="content-wrapper">
@@ -89,18 +96,32 @@ ListIterator<Department> listIteratorDept = deptist.listIterator();
 							<!-- Job Title -->
 							<div class="col-md-6">
 								<div class="form-floating">
-									<input name="jobTitle" type="text" class="form-control"
-										id="floatingJobTitle" placeholder="Software Engineer" required>
-									<label for="floatingJobTitle">Job Title</label>
+									<select name="gender" class="form-select" id="floatingGender"
+										required>
+										<option value="" disabled selected>Select Job Titles</option>
+										<%
+										while (listIteratortitle.hasNext()) {
+											Job_titles j_title = listIteratortitle.next();
+											int titleId = j_title.getJob_title_id();
+											String title = j_title.getJob_title();
+										%>
+										<option value="<%=titleId%>"><%=title%></option>
+										<%
+										}
+										%>
+
+									</select> <label for="floatingGender">Job Titles</label>
 								</div>
 							</div>
+
 
 							<!-- Manager Info -->
 							<div class="col-md-6">
 								<div class="form-floating" id="managerList">
 									<select name="manager" class="form-select" id="floatingManager"
 										required>
-										<option value="" disabled selected>Select Manager A Manager</option>
+										<option value="" disabled selected>Select Manager A
+											Manager</option>
 									</select> <label for="floatingManager">Manager Name</label>
 								</div>
 							</div>
@@ -117,23 +138,21 @@ ListIterator<Department> listIteratorDept = deptist.listIterator();
 							<!-- Employee Type -->
 							<div class="col-md-6">
 								<div class="form-floating">
-									<select name="empType" class="form-select" id="floatingEmpType"
+									<select name="gender" class="form-select" id="floatingGender"
 										required>
 										<option value="" disabled selected>Select Type</option>
-										<option value="Full-time">Full-time</option>
-										<option value="Part-time">Part-time</option>
-										<option value="Intern">Intern</option>
-										<option value="Contract">Contract</option>
-									</select> <label for="floatingEmpType">Employee Type</label>
-								</div>
-							</div>
+										<%
+										while (listIteratortype.hasNext()) {
+											Job_Types j_type = listIteratortype.next();
+											int typeid = j_type.getEmployee_type_id();
+											String type = j_type.getEmployee_type();
+										%>
+										<option value="<%=typeid%>"><%=type%></option>
+										<%
+										}
+										%>
 
-							<!-- Benefits -->
-							<div class="col-md-6">
-								<div class="form-floating">
-									<input name="benefits" type="text" class="form-control"
-										id="floatingBenefits" placeholder="Medical, Dental..."
-										required> <label for="floatingBenefits">Benefits</label>
+									</select> <label for="floatingGender">Type of Employee</label>
 								</div>
 							</div>
 							<!-- Email -->
@@ -144,6 +163,18 @@ ListIterator<Department> listIteratorDept = deptist.listIterator();
 										for="floatingInput">Email Address</label>
 								</div>
 							</div>
+							<!-- Benefits -->
+							<div class="col-md-6">
+								<label for="benefits" class="form-label">Benefits</label> <select
+									id="benefits" name="benefits[]" class="form-select" multiple
+									required>
+									<option value="Medical Insurance">Medical Insurance</option>
+									<option value="Provident Fund">Provident Fund</option>
+									<option value="Life Insurance">Life Insurance</option>
+								</select>
+								<div class="form-text">Select one or more benefits.</div>
+							</div>
+
 							<div class="col-md-6">
 								<label class="form-label d-block">Working Hours</label>
 								<div class="d-flex gap-2">
@@ -252,14 +283,14 @@ ListIterator<Department> listIteratorDept = deptist.listIterator();
 							<button type="button" class="btn btn-sm btn-outline-secondary"
 								onclick="addEmergencyContact()">Add Another Contact</button>
 						</div>
+				</div>
+				<div class="mt-4">
+					<button class="btn btn-primary w-100 py-2" type="submit">Add
+						Employee</button>
+				</div>
 
-						<div class="mt-4">
-							<button class="btn btn-primary w-100 py-2" type="submit">Add
-								Employee</button>
-						</div>
 
-
-					</form>
+				</form>
 			</main>
 		</div>
 	</div>
@@ -341,10 +372,17 @@ ListIterator<Department> listIteratorDept = deptist.listIterator();
 	    `;
 	    container.appendChild(div);
 	  }
+	  document.addEventListener('DOMContentLoaded', function () {
+		    new Choices('#benefits', {
+		      removeItemButton: true,
+		      placeholder: true,
+		      placeholderValue: 'Select benefits'
+		    });
+		  });
 	  
 	  function loadManagers(deptId)
 	  {
-		alert("Loading departments for: "+deptId );
+		
 
 		 //$("#managerList").load('managerList.jsp');
 		 
