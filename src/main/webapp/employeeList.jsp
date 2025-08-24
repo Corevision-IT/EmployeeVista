@@ -319,8 +319,7 @@ ListIterator<Employee> listIteratorEmp = empList.listIterator();
 													String Department = emp.getDepartment();
 													String Employee_Type = emp.getEmployee_type();
 													String Employee_status = emp.getEmp_status();
-													String Work_Hours = emp.getWork_hour();
-													
+													String Work_Hours = emp.getWork_hour();													
 												%>
 												<tr>
 													<td><img src="assets/images/faces/<%=profilePicture%>"

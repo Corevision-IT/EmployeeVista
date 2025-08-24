@@ -25,11 +25,24 @@ public class Employee {
 	private Enrollment enrollment;
 	
 	private ArrayList<Skill> skills;
+	private ArrayList<Certifications> certifications;
+	private ArrayList<Emergency_Contacts> emergency_Contacts;
 	
 	
 	
 	
-	
+	public ArrayList<Certifications> getCertifications() {
+		return certifications;
+	}
+	public void setCertifications(ArrayList<Certifications> certifications) {
+		this.certifications = certifications;
+	}
+	public ArrayList<Emergency_Contacts> getEmergency_Contacts() {
+		return emergency_Contacts;
+	}
+	public void setEmergency_Contacts(ArrayList<Emergency_Contacts> emergency_Contacts) {
+		this.emergency_Contacts = emergency_Contacts;
+	}
 	public Enrollment getEnrollment() {
 		return enrollment;
 	}
