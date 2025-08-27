@@ -46,14 +46,39 @@ public class SaveEmployee extends HttpServlet {
 		
 		if (loggedIn == 1) 
 		{
-			String empName = request.getParameter("name"); //
-			String skillName = request.getParameter("skillName");
+			String empName = request.getParameter("name"); 
+			String gender = request.getParameter("gender");
+			String dob = request.getParameter("dob");
+			String phone = request.getParameter("phone");
+			String department = request.getParameter("department");
+			String jobTitle = request.getParameter("jobTitle");
+			String manager = request.getParameter("manager");
+			String hiringDate = request.getParameter("hiringDate");
+			String emptype = request.getParameter("emptype");
+			String emailaddress = request.getParameter("emailAddress");
+			
+//			String skillName = request.getParameter("skillName");
+//			System.out.println("skill: "+skillName);
+//			
 			
 			System.out.println("empName: "+empName);
-			System.out.println("skillName: "+skillName);
+			System.out.println("Gender: "+gender);
+			System.out.println("dob: "+dob);
+			System.out.println("Phone number: "+phone);
+			System.out.println("department: "+department);
+			System.out.println("manager: "+manager);
+			System.out.println("jobTitle: "+jobTitle);
+			System.out.println("hiringDate: "+hiringDate);
+			System.out.println("emptype: "+emptype);
+			System.out.println("emailaddress: "+emailaddress);
+			
+			
+			
+			
+			
+			
 			
 			request.getRequestDispatcher("AddEmployee").forward(request, response);
-			
 		}
 		else
 		{
@@ -61,9 +86,7 @@ public class SaveEmployee extends HttpServlet {
 			customMessage.setUserMessage("You are successfully logged out/n Please login again to uset the application");
 			request.setAttribute("UserMessage", customMessage);
 			request.getRequestDispatcher("login.jsp").forward(request, response);
-		}
-		
-		
+		}	
 	}
 
 	/**

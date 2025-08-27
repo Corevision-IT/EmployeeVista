@@ -18,18 +18,17 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 	<div class="content-wrapper">
 		<div class="page-header">
 
-
 			<main class="container mt-5 mb-5">
 				<h3 class="page-title">
 					<span class="page-title-icon bg-gradient-primary text-white me-2">
 						<i class="mdi mdi-home"></i>
 					</span> Add Employees
 				</h3>
-				<br> <br>
+				<br>
+				<br>
 				<div class="table-responsive"
 					style="overflow-y: auto; height: 450px;">
-					<form action="SaveEmployee" method="post">
-
+					<form action="SaveEmployee" method="post" onsubmit="prepareAll()">
 
 						<div class="row g-3">
 							<!-- Name -->
@@ -48,7 +47,7 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 										<option value="" disabled selected>Select Gender</option>
 										<option value="Male">Male</option>
 										<option value="Female">Female</option>
-										<option value="Other">Other</option>
+										
 									</select> <label for="floatingGender">Gender</label>
 								</div>
 							</div>
@@ -74,51 +73,43 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 							<!-- Department -->
 							<div class="col-md-6">
 								<div class="form-floating">
-									<select name="gender" class="form-select" id="floatingGender"
+									<select name="department" class="form-select"
 										onchange="loadManagers(this.value)">
 										<option value="" disabled selected>Select Department</option>
 										<%
 										while (listIteratorDept.hasNext()) {
 											Department dept = listIteratorDept.next();
-											int deptId = dept.getDepartmentID();
-											String deptName = dept.getDepartment();
 										%>
-										<option value="<%=deptId%>"><%=deptName%></option>
+										<option value="<%=dept.getDepartmentID()%>"><%=dept.getDepartment()%></option>
 										<%
 										}
 										%>
-
-									</select> <label for="floatingGender">Departments</label>
+									</select> <label>Departments</label>
 								</div>
 							</div>
 
 							<!-- Job Title -->
 							<div class="col-md-6">
 								<div class="form-floating">
-									<select name="gender" class="form-select" id="floatingGender">
+									<select name="jobTitle" class="form-select">
 										<option value="" disabled selected>Select Job Titles</option>
 										<%
 										while (listIteratortitle.hasNext()) {
 											Job_titles j_title = listIteratortitle.next();
-											int titleId = j_title.getJob_title_id();
-											String title = j_title.getJob_title();
 										%>
-										<option value="<%=titleId%>"><%=title%></option>
+										<option value="<%=j_title.getJob_title_id()%>"><%=j_title.getJob_title()%></option>
 										<%
 										}
 										%>
-
-									</select> <label for="floatingGender">Job Titles</label>
+									</select> <label>Job Titles</label>
 								</div>
 							</div>
-
 
 							<!-- Manager Info -->
 							<div class="col-md-6">
 								<div class="form-floating" id="managerList">
-									<select name="manager" class="form-select" id="floatingManager">
-										<option value="" disabled selected>Select Manager A
-											Manager</option>
+									<select name="manager" class="form-select">
+										<option value="" disabled selected>Select a Manager</option>
 									</select> <label for="floatingManager">Manager Name</label>
 								</div>
 							</div>
@@ -135,22 +126,20 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 							<!-- Employee Type -->
 							<div class="col-md-6">
 								<div class="form-floating">
-									<select name="gender" class="form-select" id="floatingGender">
+									<select name="emptype" class="form-select">
 										<option value="" disabled selected>Select Type</option>
 										<%
 										while (listIteratortype.hasNext()) {
 											Job_Types j_type = listIteratortype.next();
-											int typeid = j_type.getEmployee_type_id();
-											String type = j_type.getEmployee_type();
 										%>
-										<option value="<%=typeid%>"><%=type%></option>
+										<option value="<%=j_type.getEmployee_type_id()%>"><%=j_type.getEmployee_type()%></option>
 										<%
 										}
 										%>
-
-									</select> <label for="floatingGender">Type of Employee</label>
+									</select> <label>Type of Employee</label>
 								</div>
 							</div>
+
 							<!-- Email -->
 							<div class="col-md-6">
 								<div class="form-floating">
@@ -159,6 +148,7 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 										for="floatingInput">Email Address</label>
 								</div>
 							</div>
+
 							<!-- Benefits -->
 							<div class="col-md-6">
 								<label for="benefits" class="form-label">Benefits</label> <select
@@ -170,6 +160,7 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 								<div class="form-text">Select one or more benefits.</div>
 							</div>
 
+							<!-- Working Hours -->
 							<div class="col-md-6">
 								<label class="form-label d-block">Working Hours</label>
 								<div class="d-flex gap-2">
@@ -183,9 +174,8 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 									</div>
 								</div>
 							</div>
-
-
 						</div>
+
 						<!-- Certifications Section -->
 						<hr class="my-4">
 						<h5 class="mb-3 mt-3">Certifications</h5>
@@ -226,16 +216,13 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 							<div class="row g-3 mb-2 skill">
 								<div class="col-md-6">
 									<div class="form-floating">
-										<input id="skillName" name="skillName" type="text"
-											class="form-control" placeholder="Skill Name"
-											onchange="prepareSkillList()"> <label>Skill
-											Name</label>
+										<input name="skillName" type="text" class="form-control"
+											placeholder="Skill Name"> <label>Skill Name</label>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-floating">
-										<select id="proficiency" name="proficiency"
-											class="form-select" onchange="prepareSkillList()">
+										<select name="proficiency" class="form-select">
 											<option value="" disabled selected>Select
 												Proficiency</option>
 											<option value="Beginner">Beginner</option>
@@ -252,18 +239,16 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 								onclick="addSkill()">Add Another Skill</button>
 						</div>
 
-
-						<hr class="my-4">
-
 						<!-- Emergency Contacts -->
+						<hr class="my-4">
 						<h5 class="mb-3 mt-3">Emergency Contacts</h5>
 						<div id="emergencyContacts">
 							<div class="row g-3 mb-2 emergency-contact">
 								<div class="col-md-6">
 									<div class="form-floating">
 										<input name="emergencyPhone" type="tel" class="form-control"
-											placeholder="Phone"> <label>Emergency
-											Contact Phone</label>
+											placeholder="Phone"> <label>Emergency Contact
+											Phone</label>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -275,26 +260,27 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 								</div>
 							</div>
 						</div>
-
 						<div class="mb-3">
 							<button type="button" class="btn btn-sm btn-outline-secondary"
 								onclick="addEmergencyContact()">Add Another Contact</button>
 						</div>
 				</div>
+
+				<!-- Hidden fields to carry dynamic data -->
+				<input type="hidden" name="hdnSkills" id="hdnSkills"> <input
+					type="hidden" name="hdnCertifications" id="hdnCertifications">
+				<input type="hidden" name="hdnContacts" id="hdnContacts">
+
 				<div class="mt-4">
 					<button class="btn btn-primary w-100 py-2" type="submit">Add
 						Employee</button>
 				</div>
-
-				<input type="hidden" name="hdnSkills" value="" id="hdnSkills">
 
 				</form>
 			</main>
 		</div>
 	</div>
 </div>
-</div>
-
 
 <script>
 function addEmergencyContact() {
@@ -304,23 +290,19 @@ function addEmergencyContact() {
     div.innerHTML = `
       <div class="col-md-6">
         <div class="form-floating">
-          <input name="emergencyPhone" type="tel" class="form-control"
-           placeholder="Phone" onchange="prepareContacts()">
+          <input name="emergencyPhone" type="tel" class="form-control" placeholder="Phone">
           <label>Emergency Contact Phone</label>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-floating">
-          <input name="emergencyName" type="text" class="form-control"
-           placeholder="Name" onchange="prepareContacts()">
+          <input name="emergencyName" type="text" class="form-control" placeholder="Name">
           <label>Emergency Contact Name</label>
         </div>
-      </div>
-    `;
+      </div>`;
     container.appendChild(div);
 }
 
-// Add Certification row
 function addCertification() {
     const container = document.getElementById('certifications');
     const div = document.createElement('div');
@@ -328,141 +310,103 @@ function addCertification() {
     div.innerHTML = `
       <div class="col-md-4">
         <div class="form-floating">
-          <input name="certificateName" type="text" class="form-control"
-           placeholder="Certificate Name" onchange="prepareCertifications()">
+          <input name="certificateName" type="text" class="form-control" placeholder="Certificate Name">
           <label>Certificate Name</label>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-floating">
-          <input name="certificateAuthority" type="text" class="form-control"
-           placeholder="Issued By" onchange="prepareCertifications()">
+          <input name="certificateAuthority" type="text" class="form-control" placeholder="Issued By">
           <label>Certificate Authority</label>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-floating">
-          <input name="certificateYear" type="number" class="form-control"
-           placeholder="2023" min="1900" max="2099" onchange="prepareCertifications()">
+          <input name="certificateYear" type="number" class="form-control" placeholder="2023" min="1900" max="2099">
           <label>Year</label>
         </div>
-      </div>
-    `;
+      </div>`;
     container.appendChild(div);
 }
-  function addSkill() {
-	    const container = document.getElementById('skills');
-	    const div = document.createElement('div');
-	    div.className = 'row g-3 mb-2 skill';
-	    div.innerHTML = `
-	        <div class="col-md-6">
-	            <div class="form-floating">
-	                <input name="skillName" type="text" class="form-control"
-	                    placeholder="Skill Name" onchange="prepareSkills()">
-	                <label>Skill Name</label>
-	            </div>
-	        </div>
-	        <div class="col-md-6">
-	            <div class="form-floating">
-	                <select name="proficiency" class="form-select" onchange="prepareSkills()">
-	                    <option value="" disabled selected>Select Proficiency</option>
-	                    <option value="Beginner">Beginner</option>
-	                    <option value="Intermediate">Intermediate</option>
-	                    <option value="Advanced">Advanced</option>
-	                    <option value="Expert">Expert</option>
-	                </select>
-	                <label>Proficiency Level</label>
-	            </div>
-	        </div>
-	    `;
-	    container.appendChild(div);
-	}
 
-	  
-	  function loadManagers(deptId)
-	  {
-		
+function addSkill() {
+    const container = document.getElementById('skills');
+    const div = document.createElement('div');
+    div.className = 'row g-3 mb-2 skill';
+    div.innerHTML = `
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input name="skillName" type="text" class="form-control" placeholder="Skill Name">
+                <label>Skill Name</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-floating">
+                <select name="proficiency" class="form-select">
+                    <option value="" disabled selected>Select Proficiency</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                    <option value="Expert">Expert</option>
+                </select>
+                <label>Proficiency Level</label>
+            </div>
+        </div>`;
+    container.appendChild(div);
+}
 
-		 //$("#managerList").load('managerList.jsp');
-		 
-		 //AJAX - asynchronous java script 
-		 
-		$.ajax({
-            url: 'LoadManagers', // The URL pattern of your servlet
-            type: 'GET', 
-            data: { deptId: deptId }, // Optional: send data to servlet
-            success: function(response){
-                $('#managerList').html(response); // Inject the JSP fragment into the div
-            },
-            error: function(xhr, status, error){
-                console.error("Error loading JSP fragment:", error); 
-            }
-        });
-	  }
-	  
-	// Collect all skills and show in alert
-	  function prepareSkills() {
-	      let skills = [];
+//Collect Certifications
+function prepareCertifications() {
+    let certs = [];
+    document.querySelectorAll('#certifications .certification').forEach(row => {
+        const name = row.querySelector('input[name="certificateName"]').value;
+        const authority = row.querySelector('input[name="certificateAuthority"]').value;
+        const year = row.querySelector('input[name="certificateYear"]').value;
+        if (name && authority && year) {
+            certs.push(name + "," + authority + "," + year);
+        }
+    });
+    
+    document.getElementById("hdnCertifications").value = certs.join(";");
+    alert(certs.join(" "));
+}
 
-	      // Loop over all skill rows
-	      document.querySelectorAll('#skills .skill').forEach(row => {
-	          const skillName = row.querySelector('input[name="skillName"]').value;
-	          const proficiency = row.querySelector('select[name="proficiency"]').value;
-	          if (skillName && proficiency) {
-	              skills.push(skillName + "," + proficiency);
-	          }
-	      });
+// Collect Skills
+function prepareSkills() {
+    let skills = [];
+    document.querySelectorAll('#skills .skill').forEach(row => {
+        const skillName = row.querySelector('input[name="skillName"]').value;
+        const proficiency = row.querySelector('select[name="proficiency"]').value;
+        if (skillName && proficiency) {
+            skills.push(skillName + "," + proficiency);
+        }
+    });
+    
+    document.getElementById("hdnSkills").value = skills.join(";");
+    alert(skills.join(" "));
+}
 
-	      // Show collected skills in alert
-	      if (skills.length > 0) {
-	          alert("Entered Skills:\n" + skills.join("\n"));
-	      } else {
-	          alert("No skills entered!");
-	      }
-	  }
 
-	  function prepareCertifications() {
-		    let certs = [];
-		    document.querySelectorAll('#certifications .certification').forEach(row => {
-		        const name = row.querySelector('input[name="certificateName"]').value;
-		        const authority = row.querySelector('input[name="certificateAuthority"]').value;
-		        const year = row.querySelector('input[name="certificateYear"]').value;
-		        if (name && authority && year) {
-		            certs.push(name + "," + authority + "," + year);
-		        }
-		    });
-		    if (certs.length > 0) {
-		        alert("Entered Certifications:\n" + certs.join("\n"));
-		    } else {
-		        alert("No certifications entered!");
-		    }
-		}
-	 	
-		
-		function prepareContacts() {
-		    let contacts = [];
-		    document.querySelectorAll('#emergencyContacts .emergency-contact').forEach(row => {
-		        const phone = row.querySelector('input[name="emergencyPhone"]').value;
-		        const name = row.querySelector('input[name="emergencyName"]').value;
-		        if (phone && name) {
-		            contacts.push(phone + "," + name);
-		        }
-		    });
-		    if (contacts.length > 0) {
-		        alert("Entered Emergency Contacts:\n" + contacts.join("\n"));
-		    } else {
-		        alert("No contacts entered!");
-		    }
-		}
 
-		
-		document.querySelector("form").addEventListener("submit", function (e) {
-		    e.preventDefault(); // for testing
-		    prepareSkills();
-		    prepareCertifications();
-		    prepareContacts();
-		});
+// Collect Contacts
+function prepareContacts() {
+    let contacts = [];
+    document.querySelectorAll('#emergencyContacts .emergency-contact').forEach(row => {
+        const phone = row.querySelector('input[name="emergencyPhone"]').value;
+        const name = row.querySelector('input[name="emergencyName"]').value;
+        if (phone && name) {
+            contacts.push(phone + "," + name);
+        }
+    });
+    
+    document.getElementById("hdnContacts").value = contacts.join(";");
+    alert(contacts.join(" "));
+}
 
-	  
+// Call all before submit
+function prepareAll() {
+    prepareSkills();
+    prepareCertifications();
+    prepareContacts();
+}
 </script>
-

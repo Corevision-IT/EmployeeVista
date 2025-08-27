@@ -57,7 +57,7 @@ public class EmployeeServices {
 			Connection con = dBConnector.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);
 
-			System.out.println(stmt);
+			//System.out.println(stmt);
 
 			ResultSet rs = stmt.executeQuery();
 

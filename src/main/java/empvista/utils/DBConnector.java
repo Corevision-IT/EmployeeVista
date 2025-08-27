@@ -24,6 +24,7 @@ public class DBConnector {
 	public static Connection getConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
+//			String url = "jdbc:mysql://localhost:3306/employee_db";
 			String url = "jdbc:mysql://localhost:3306/employee_data"; 
 			String username = "empmgmt"; // this is sensitive information
 			String password = "empmgmt"; // //this is sensitive information
