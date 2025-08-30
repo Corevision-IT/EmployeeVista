@@ -308,22 +308,29 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 						<h5 class="mb-3 mt-3">Emergency Contacts</h5>
 						<div id="emergencyContacts">
 							<div class="row g-3 mb-2 emergency-contact">
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<div class="form-floating">
 										<input name="emergencyPhone" type="tel" class="form-control"
 											placeholder="Phone"> <label>Emergency Contact
 											Phone</label>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<div class="form-floating">
 										<input name="emergencyName" type="text" class="form-control"
 											placeholder="Name"> <label>Emergency Contact
 											Name</label>
 									</div>
 								</div>
+								<div class="col-md-4">
+									<div class="form-floating">
+										<input name="emergencyRelation" type="text"
+											class="form-control" placeholder="Relationship"> <label>Relationship</label>
+									</div>
+								</div>
 							</div>
 						</div>
+
 						<div class="mb-3">
 							<button type="button" class="btn btn-sm btn-outline-secondary"
 								onclick="addEmergencyContact()">Add Another Contact</button>
@@ -477,8 +484,9 @@ function prepareContacts() {
     document.querySelectorAll('#emergencyContacts .emergency-contact').forEach(row => {
         const phone = row.querySelector('input[name="emergencyPhone"]').value;
         const name = row.querySelector('input[name="emergencyName"]').value;
+        const relation = row.querySelector('input[name="emergencyRelation"]').value;
         if (phone && name) {
-            contacts.push(phone + "," + name);
+            contacts.push(phone + "," + name + "," + relation);
         }
     });
     

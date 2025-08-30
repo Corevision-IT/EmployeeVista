@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import empvista.entities.Certifications;
 import empvista.entities.CustomMessage;
+import empvista.entities.Emergency_Contacts;
 import empvista.entities.Employee;
+import empvista.entities.Skill;
 import empvista.entities.User;
 import empvista.utils.DBConnector;
 
@@ -98,25 +102,55 @@ public class SaveEmployee extends HttpServlet {
 			System.out.println("hdnCertifications: "+hdnCertifications);
 			System.out.println("hdnContacts: "+hdnContacts);
 			
+			 ArrayList<Skill> skillList = new ArrayList<>();
+			    if (hdnSkills != null && !hdnSkills.trim().isEmpty()) {
+			        String[] skillPairs = hdnSkills.split(";");
+			        for (String skillPair : skillPairs) {
+			            String[] parts = skillPair.split(",");
+			            if (parts.length == 2) {
+			                Skill skill = new Skill();
+			                skill.setSkill_name(parts[0].trim());
+			                skill.setProficiency_level(parts[1].trim());
+			                skillList.add(skill);
+			            }
+			        }
+			    }
+			    
+			    ArrayList<Certifications> certList = new ArrayList<>();
+			    if (hdnCertifications != null && !hdnCertifications.trim().isEmpty()) {
+			        String[] certPairs = hdnCertifications.split(";");
+			        for (String certPair : certPairs) {
+			            String[] parts = certPair.split(",");
+			            if (parts.length == 3) {
+			                Certifications cert = new Certifications();
+			                cert.setCertificate_name(parts[0].trim());
+			                cert.setCertificate_authority(parts[1].trim());
+			                cert.setCertifcate_year(parts[2].trim());
+			                certList.add(cert);
+			            }
+			        }
+			    }
+			    
+			    ArrayList<Emergency_Contacts> contactList = new ArrayList<>();
+			    if (hdnContacts != null && !hdnContacts.trim().isEmpty()) {
+			        String[] contactPairs = hdnContacts.split(";");
+			        for (String contactPair : contactPairs) {
+			            String[] parts = contactPair.split(",");
+			            if (parts.length == 3) {
+			            	Emergency_Contacts emergency_Contacts = new Emergency_Contacts();
+			            	emergency_Contacts.setContact_name(parts[1].trim());
+			            	emergency_Contacts.setContact_name(parts[0].trim());
+			            	emergency_Contacts.setRelationship(parts[2].trim());
+			            	contactList.add(emergency_Contacts);
+			            }
+			        }
+			    }
+			    
+			    Employee emp = new Employee();
+			    emp.setSkills(skillList);
+			    emp.setCertifications(certList);
+			    emp.setEmergency_Contacts(contactList);
 			
-			String sql="";
-			
-			DBConnector dBConnector = DBConnector.getInstance();
-			try {
-				Connection con = dBConnector.getConnection();
-				PreparedStatement stmt = con.prepareStatement(sql);
-
-				//System.out.println(stmt);
-
-				ResultSet rs = stmt.executeQuery();
-
-				
-				}
-
-			 catch (SQLException e) {
-
-				e.printStackTrace();
-			}
 			
 			
 			
