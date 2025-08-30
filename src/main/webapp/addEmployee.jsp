@@ -24,8 +24,7 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 						<i class="mdi mdi-home"></i>
 					</span> Add Employees
 				</h3>
-				<br>
-				<br>
+				<br> <br>
 				<div class="table-responsive"
 					style="overflow-y: auto; height: 450px;">
 					<form action="SaveEmployee" method="post" onsubmit="prepareAll()">
@@ -47,7 +46,7 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 										<option value="" disabled selected>Select Gender</option>
 										<option value="Male">Male</option>
 										<option value="Female">Female</option>
-										
+
 									</select> <label for="floatingGender">Gender</label>
 								</div>
 							</div>
@@ -148,6 +147,71 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 										for="floatingInput">Email Address</label>
 								</div>
 							</div>
+							<!-- Address Section -->
+							<hr class="my-4">
+							<h5 class="mb-3 mt-3">Address</h5>
+							<div id="addressSection">
+								<div class="row g-3 mb-2">
+									<!-- Address Line 1 -->
+									<div class="col-md-6">
+										<div class="form-floating">
+											<input name="addressLine1" type="text" class="form-control"
+												id="floatingAddress1" placeholder="Address Line 1">
+											<label for="floatingAddress1">Address Line 1</label>
+										</div>
+									</div>
+
+									<!-- Address Line 2 -->
+									<div class="col-md-6">
+										<div class="form-floating">
+											<input name="addressLine2" type="text" class="form-control"
+												id="floatingAddress2" placeholder="Address Line 2">
+											<label for="floatingAddress2">Address Line 2</label>
+										</div>
+									</div>
+								</div>
+
+								<div class="row g-3 mb-2">
+									<!-- Country -->
+									<div class="col-md-4">
+										<div class="form-floating">
+											<input name="country" type="text" class="form-control"
+												id="floatingCountry" placeholder="Country"> <label
+												for="floatingCountry">Country</label>
+										</div>
+									</div>
+
+									<!-- State -->
+									<div class="col-md-4">
+										<div class="form-floating">
+											<input name="state" type="text" class="form-control"
+												id="floatingState" placeholder="State"> <label
+												for="floatingState">State</label>
+										</div>
+									</div>
+
+									<!-- City -->
+									<div class="col-md-4">
+										<div class="form-floating">
+											<input name="city" type="text" class="form-control"
+												id="floatingCity" placeholder="City"> <label
+												for="floatingCity">City</label>
+										</div>
+									</div>
+								</div>
+
+								<div class="row g-3 mb-2">
+									<!-- Zip Code -->
+									<div class="col-md-6">
+										<div class="form-floating">
+											<input name="zipCode" type="text" class="form-control"
+												id="floatingZip" placeholder="Zip Code"> <label
+												for="floatingZip">Zip Code</label>
+										</div>
+									</div>
+								</div>
+							</div>
+
 
 							<!-- Benefits -->
 							<div class="col-md-6">

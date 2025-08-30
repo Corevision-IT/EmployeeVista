@@ -1,6 +1,11 @@
 package empvista.servlets;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import empvista.entities.CustomMessage;
+import empvista.entities.Employee;
 import empvista.entities.User;
+import empvista.utils.DBConnector;
 
 /**
  * Servlet implementation class SaveEmployee
@@ -57,6 +64,21 @@ public class SaveEmployee extends HttpServlet {
 			String emptype = request.getParameter("emptype");
 			String emailaddress = request.getParameter("emailAddress");
 			
+			String addressLine1 = request.getParameter("addressLine1")	;
+			String addressLine2 = request.getParameter("addressLine2")	;
+			String country = request.getParameter("country")	;
+			String state = request.getParameter("state")	;
+			String city = request.getParameter("city")	;
+			String zipCode = request.getParameter("zipCode")	;
+			
+			String[] benefits = request.getParameterValues("benefits[]");
+            String workingFrom = request.getParameter("workingFrom");
+            String workingTo = request.getParameter("workingTo");
+            
+            String hdnSkills = request.getParameter("hdnSkills");             
+            String hdnCertifications = request.getParameter("hdnCertifications"); 
+            String hdnContacts = request.getParameter("hdnContacts"); 
+			
 //			String skillName = request.getParameter("skillName");
 //			System.out.println("skill: "+skillName);
 //			
@@ -73,6 +95,24 @@ public class SaveEmployee extends HttpServlet {
 			System.out.println("emailaddress: "+emailaddress);
 			
 			
+			String sql="";
+			
+			DBConnector dBConnector = DBConnector.getInstance();
+			try {
+				Connection con = dBConnector.getConnection();
+				PreparedStatement stmt = con.prepareStatement(sql);
+
+				//System.out.println(stmt);
+
+				ResultSet rs = stmt.executeQuery();
+
+				
+				}
+
+			 catch (SQLException e) {
+
+				e.printStackTrace();
+			}
 			
 			
 			
