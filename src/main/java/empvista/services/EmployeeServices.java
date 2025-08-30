@@ -36,7 +36,7 @@ public class EmployeeServices {
 				+ "    e_t.employee_type,\r\n"
 				+ "    e_s.status,\r\n"
 				+ "    (s_s.basic+s_s.bonus+s_s.conveyance_allowance+s_s.hra+s_s.special_allowance) AS Salary,\r\n"
-				+ "    CONCAT('Weekly Hours ',w_h.weekly_hours,'----',w_h.shift_type,'  Shift ') as Work_Hours,\r\n"
+				+ "    CONCAT('Working From--',w_h.workingfrom,'---- Working to---',w_h.workingto) as Work_Hours,\r\n"
 				+ "    CONCAT(p_r.rating_score,'  --  ',p_r.comments) AS Performance\r\n"
 				+ "    \r\n"
 				+ "FROM\r\n"
@@ -77,7 +77,8 @@ public class EmployeeServices {
 				emp.setDepartment(rs.getString("department"));
 				emp.setEmployee_type(rs.getString("employee_type"));
 				emp.setEmp_status(rs.getString("status"));
-				emp.setWork_hour(rs.getString("Work_Hours"));
+				emp.setWorkingfrom(rs.getString("workingfrom"));
+				emp.setWorkingto(rs.getString("workingto"));
 
 //				System.out.println(emp.toString());
 

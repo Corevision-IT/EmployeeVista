@@ -14,9 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import empvista.entities.Benefits_Enrollment;
 import empvista.entities.Certifications;
 import empvista.entities.CustomMessage;
 import empvista.entities.Emergency_Contacts;
+import empvista.entities.EmpAddress;
 import empvista.entities.Employee;
 import empvista.entities.Skill;
 import empvista.entities.User;
@@ -57,6 +59,7 @@ public class SaveEmployee extends HttpServlet {
 		
 		if (loggedIn == 1) 
 		{
+			Employee emp = new Employee();
 			String empName = request.getParameter("name"); 
 			String gender = request.getParameter("gender");
 			String dob = request.getParameter("dob");
@@ -68,6 +71,17 @@ public class SaveEmployee extends HttpServlet {
 			String emptype = request.getParameter("emptype");
 			String emailaddress = request.getParameter("emailAddress");
 			
+			 emp.setName(empName);
+			 emp.setGender(gender);
+			 emp.setDob(dob);
+			 emp.setPhone_number(phone);
+			 emp.setDepartment(department);
+			 emp.setJob_title(jobTitle);
+			 emp.setManager(manager);
+			 emp.setHire_date(hiringDate);
+			 emp.setEmployee_type(emptype);
+			 emp.setEmail_id(emailaddress);
+			
 			String addressLine1 = request.getParameter("addressLine1")	;
 			String addressLine2 = request.getParameter("addressLine2")	;
 			String country = request.getParameter("country")	;
@@ -75,9 +89,26 @@ public class SaveEmployee extends HttpServlet {
 			String city = request.getParameter("city")	;
 			String zipCode = request.getParameter("zipCode")	;
 			
+			EmpAddress empaddress = new EmpAddress();
+			empaddress.setAddress_line_1(addressLine1);
+			empaddress.setAddress_line_2(addressLine2);
+			empaddress.setCity(city);
+			empaddress.setCountry(country);
+			empaddress.setState(state);
+			empaddress.setZip_code(zipCode);
+			
 			String[] benefits = request.getParameterValues("benefits[]");
+			Benefits_Enrollment benefit = new Benefits_Enrollment();
+			benefit.setMedical_insurance(benefits[0]);
+			benefit.setProvident_fund(benefits[1]);
+			benefit.setLife_insurabce(benefits[2]);
+			
             String workingFrom = request.getParameter("workingFrom");
             String workingTo = request.getParameter("workingTo");
+            
+            emp.setWorkingfrom(workingFrom);
+            emp.setWorkingto(workingTo);
+            
             
             String hdnSkills = request.getParameter("hdnSkills");             
             String hdnCertifications = request.getParameter("hdnCertifications"); 
@@ -146,10 +177,11 @@ public class SaveEmployee extends HttpServlet {
 			        }
 			    }
 			    
-			    Employee emp = new Employee();
+			    
 			    emp.setSkills(skillList);
 			    emp.setCertifications(certList);
 			    emp.setEmergency_Contacts(contactList);
+			   
 			
 			
 			

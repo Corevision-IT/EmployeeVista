@@ -19,7 +19,20 @@ public class Employee {
 	private String employee_type;
 	private String rating;
 	private String enrollement;
-	private String work_hour;
+	private String workingfrom;
+	private String workingto;
+	public String getWorkingfrom() {
+		return workingfrom;
+	}
+	public void setWorkingfrom(String workingfrom) {
+		this.workingfrom = workingfrom;
+	}
+	public String getWorkingto() {
+		return workingto;
+	}
+	public void setWorkingto(String workingto) {
+		this.workingto = workingto;
+	}
 	private String profile_picture;
 	
 	private Enrollment enrollment;
@@ -27,6 +40,7 @@ public class Employee {
 	private ArrayList<Skill> skills;
 	private ArrayList<Certifications> certifications;
 	private ArrayList<Emergency_Contacts> emergency_Contacts;
+	
 	
 	
 	
@@ -155,21 +169,18 @@ public class Employee {
 	public void setEnrollement(String enrollement) {
 		this.enrollement = enrollement;
 	}
-	public String getWork_hour() {
-		return work_hour;
-	}
-	public void setWork_hour(String work_hour) {
-		this.work_hour = work_hour;
-	}
 	@Override
 	public String toString() {
 		return "Employee [employee_id=" + employee_id + ", name=" + name + ", gender=" + gender + ", dob=" + dob
 				+ ", email_id=" + email_id + ", phone_number=" + phone_number + ", department=" + department
 				+ ", job_title=" + job_title + ", manager=" + manager + ", hire_date=" + hire_date
 				+ ", salary_structure=" + salary_structure + ", emp_status=" + emp_status + ", employee_type="
-				+ employee_type + ", rating=" + rating + ", enrollement=" + enrollement + ", work_hour=" + work_hour
-				+ "]";
+				+ employee_type + ", rating=" + rating + ", enrollement=" + enrollement + ", workingfrom=" + workingfrom
+				+ ", workingto=" + workingto + ", profile_picture=" + profile_picture + ", enrollment=" + enrollment
+				+ ", skills=" + skills + ", certifications=" + certifications + ", emergency_Contacts="
+				+ emergency_Contacts + "]";
 	}
+	
 	
 	
 	

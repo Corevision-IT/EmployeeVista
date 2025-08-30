@@ -217,9 +217,9 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 							<div class="col-md-6">
 								<label for="benefits" class="form-label">Benefits</label> <select
 									id="benefits" name="benefits[]" class="form-select" multiple>
-									<option value="Medical Insurance">Medical Insurance</option>
-									<option value="Provident Fund">Provident Fund</option>
-									<option value="Life Insurance">Life Insurance</option>
+									<option value="1">Medical Insurance</option>
+									<option value="1">Provident Fund</option>
+									<option value="1">Life Insurance</option>
 								</select>
 								<div class="form-text">Select one or more benefits.</div>
 							</div>
@@ -492,6 +492,10 @@ function prepareContacts() {
     
     document.getElementById("hdnContacts").value = contacts.join(";");
     alert(contacts.join(" "));
+}
+
+function printBenefits(){
+	document.getElementByID("benefits");
 }
 
 // Call all before submit
