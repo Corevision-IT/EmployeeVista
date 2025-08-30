@@ -347,6 +347,25 @@ ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 </div>
 
 <script>
+
+function loadManagers(deptId) { 
+ //$("#managerList").load('managerList.jsp'); 
+ //AJAX - asynchronous java script 
+ $.ajax(
+			 { url: 'LoadManagers', // The URL pattern of your servlet 
+				type: 'GET', data: { deptId: deptId }, // Optional: send data to servlet 
+				success: function(response)
+					{ 
+						$('#managerList').html(response); // Inject the JSP fragment into the div 
+					}, 
+				error: function(xhr, status, error)
+				{ 
+					console.error("Error loading JSP fragment:", error); 
+				} 
+			}
+ 		); 
+ }
+
 function addEmergencyContact() {
     const container = document.getElementById('emergencyContacts');
     const div = document.createElement('div');

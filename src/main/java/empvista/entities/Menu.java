@@ -1,6 +1,8 @@
 package empvista.entities;
 
-public class Menu {
+import java.io.Serializable;
+
+public class Menu implements Serializable{
 	
 	private int menuId;
 	private String menuName;

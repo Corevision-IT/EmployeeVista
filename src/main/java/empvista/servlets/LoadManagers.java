@@ -41,7 +41,7 @@ public class LoadManagers extends HttpServlet {
 		{
 			ArrayList managerList = EmployeeServices.getManagerList(deptId);
 			request.setAttribute("MANAGER_LIST", managerList);
-			
+			System.out.println("Load Manager called");
 			request.getRequestDispatcher("managerList.jsp").forward(request, response);
 		}
 	}

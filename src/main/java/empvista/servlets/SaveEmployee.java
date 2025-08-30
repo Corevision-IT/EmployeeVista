@@ -94,6 +94,10 @@ public class SaveEmployee extends HttpServlet {
 			System.out.println("emptype: "+emptype);
 			System.out.println("emailaddress: "+emailaddress);
 			
+			System.out.println("hdnSkills : "+hdnSkills);
+			System.out.println("hdnCertifications: "+hdnCertifications);
+			System.out.println("hdnContacts: "+hdnContacts);
+			
 			
 			String sql="";
 			
