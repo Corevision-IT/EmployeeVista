@@ -18,7 +18,7 @@ public class EmployeeServices {
 
 	public static ArrayList getEmployeeList() {
 
-		ArrayList empList = new ArrayList();
+		ArrayList<Employee> empList = new ArrayList<Employee>();
 
 		// Modify the query to show values instead of ids
 		String sql = "SELECT \r\n"
@@ -57,7 +57,7 @@ public class EmployeeServices {
 			Connection con = dBConnector.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);
 
-			//System.out.println(stmt);
+			System.out.println(stmt);
 
 			ResultSet rs = stmt.executeQuery();
 
@@ -77,8 +77,8 @@ public class EmployeeServices {
 				emp.setDepartment(rs.getString("department"));
 				emp.setEmployee_type(rs.getString("employee_type"));
 				emp.setEmp_status(rs.getString("status"));
-				emp.setWorkingfrom(rs.getString("workingfrom"));
-				emp.setWorkingto(rs.getString("workingto"));
+				emp.setWorkHours(rs.getString("Work_Hours"));
+//				emp.setWorkingto(rs.getString("workingto"));
 
 //				System.out.println(emp.toString());
 
@@ -216,4 +216,18 @@ public class EmployeeServices {
 		return jtypeList;
 	}
 
+	public static boolean insertEmployee(Employee emp) {
+		
+		String sqlGetMaxEmpId = "SELECT max(employee_id) empId FROM employee_data.employees";
+		
+		int nextEmpId = 0;
+		
+		
+		
+		return false;
+	}
+
+	
+	
+	
 }

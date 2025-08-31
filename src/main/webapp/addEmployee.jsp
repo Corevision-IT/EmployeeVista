@@ -3,13 +3,15 @@
 <%@ page import="empvista.entities.Job_titles"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.ListIterator"%>
+
 <%
-ArrayList deptist = (ArrayList) request.getAttribute("DEPTLIST");
-ListIterator<Department> listIteratorDept = deptist.listIterator();
-ArrayList jtitleList = (ArrayList) request.getAttribute("TITLELIST");
-ListIterator<Job_titles> listIteratortitle = jtitleList.listIterator();
-ArrayList jtypeList = (ArrayList) request.getAttribute("TYPELIST");
-ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
+	ArrayList deptist = (ArrayList) request.getAttribute("DEPTLIST");
+	ListIterator<Department> listIteratorDept = deptist.listIterator();
+	ArrayList jtitleList = (ArrayList) request.getAttribute("TITLELIST");
+	ListIterator<Job_titles> listIteratortitle = jtitleList.listIterator();
+	ArrayList jtypeList = (ArrayList) request.getAttribute("TYPELIST");
+	ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
+	
 %>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -458,7 +460,7 @@ function prepareCertifications() {
     });
     
     document.getElementById("hdnCertifications").value = certs.join(";");
-    alert(certs.join(" "));
+    //alert(certs.join(" "));
 }
 
 // Collect Skills
@@ -473,7 +475,7 @@ function prepareSkills() {
     });
     
     document.getElementById("hdnSkills").value = skills.join(";");
-    alert(skills.join(" "));
+    //alert(skills.join(" "));
 }
 
 
@@ -491,7 +493,7 @@ function prepareContacts() {
     });
     
     document.getElementById("hdnContacts").value = contacts.join(";");
-    alert(contacts.join(" "));
+    //alert(contacts.join(" "));
 }
 
 function printBenefits(){

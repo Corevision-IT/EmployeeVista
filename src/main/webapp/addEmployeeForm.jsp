@@ -6,13 +6,21 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.ListIterator"%>
 <%@ page import="empvista.entities.Menu"%>
+<%@ page import="empvista.entities.CustomMessage"%>
 <%
-User user = (User) request.getSession().getAttribute("USER"); // type casting
-String userName = user.getUserName();
-String profilePic = user.getProfilePicName();
-String roleName= user.getRoleName();
-ArrayList menuList=(ArrayList)request.getSession().getAttribute("MenuList");
-ListIterator<Menu> listIteratorMenu = menuList.listIterator();
+	User user = (User) request.getSession().getAttribute("USER"); // type casting
+	String userName = user.getUserName();
+	String profilePic = user.getProfilePicName();
+	String roleName= user.getRoleName();
+	ArrayList menuList=(ArrayList)request.getSession().getAttribute("MenuList");
+	ListIterator<Menu> listIteratorMenu = menuList.listIterator();
+	CustomMessage customMessage = (CustomMessage)request.getAttribute("UserMessage");
+	String msg = "";
+	if(customMessage != null)
+	{
+		 msg = customMessage.getUserMessage();
+	}
+	
 %>
 
 
@@ -46,7 +54,7 @@ ListIterator<Menu> listIteratorMenu = menuList.listIterator();
 <!-- End layout styles -->
 <link rel="shortcut icon" href="assets/images/favicon.png" />
 </head>
-<body>
+<body onload="showMessage('<%=msg%>')">
 	<div class="container-scroller">
 		<div class="row p-0 m-0 proBanner" id="proBanner">
 			<div class="col-md-12 p-0 m-0">
@@ -279,5 +287,24 @@ ListIterator<Menu> listIteratorMenu = menuList.listIterator();
 	<!-- Custom js for this page -->
 	<script src="assets/js/dashboard.js"></script>
 	<!-- End custom js for this page -->
+	<script type="text/javascript">
+	
+		function showMessage(msg){
+			
+			if(msg==null)
+				{
+					// do nothing
+				}
+			else
+				{
+				
+					confirm(msg);
+					
+				}
+			
+			
+		}
+	
+	</script>
 </body>
 </html>

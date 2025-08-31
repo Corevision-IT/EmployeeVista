@@ -21,6 +21,16 @@ public class Employee {
 	private String enrollement;
 	private String workingfrom;
 	private String workingto;
+	
+	private String workHours;
+	
+	
+	public String getWorkHours() {
+		return workHours;
+	}
+	public void setWorkHours(String workHours) {
+		this.workHours = workHours;
+	}
 	public String getWorkingfrom() {
 		return workingfrom;
 	}

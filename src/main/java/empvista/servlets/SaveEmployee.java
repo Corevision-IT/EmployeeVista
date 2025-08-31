@@ -22,7 +22,9 @@ import empvista.entities.EmpAddress;
 import empvista.entities.Employee;
 import empvista.entities.Skill;
 import empvista.entities.User;
+import empvista.services.EmployeeServices;
 import empvista.utils.DBConnector;
+import empvista.utils.GenericUtility;
 
 /**
  * Servlet implementation class SaveEmployee
@@ -59,6 +61,8 @@ public class SaveEmployee extends HttpServlet {
 		
 		if (loggedIn == 1) 
 		{
+			boolean success = false;
+			
 			Employee emp = new Employee();
 			String empName = request.getParameter("name"); 
 			String gender = request.getParameter("gender");
@@ -133,6 +137,8 @@ public class SaveEmployee extends HttpServlet {
 			System.out.println("hdnCertifications: "+hdnCertifications);
 			System.out.println("hdnContacts: "+hdnContacts);
 			
+//			ArrayList<Skill> skillList = GenericUtility.arrayToArrayList(hdnSkills,2);
+			
 			 ArrayList<Skill> skillList = new ArrayList<>();
 			    if (hdnSkills != null && !hdnSkills.trim().isEmpty()) {
 			        String[] skillPairs = hdnSkills.split(";");
@@ -183,12 +189,23 @@ public class SaveEmployee extends HttpServlet {
 			    emp.setEmergency_Contacts(contactList);
 			   
 			
-			
-			
-			
-			
-			
-			request.getRequestDispatcher("AddEmployee").forward(request, response);
+			    success = EmployeeServices.insertEmployee(emp);
+			    
+			    if(success)
+			    {
+			    	CustomMessage customMessage = new CustomMessage();
+					customMessage.setUserMessage("Employee Data inserted successfully.....");
+					request.setAttribute("UserMessage", customMessage);
+					request.getRequestDispatcher("AddEmployee").forward(request, response);
+			    }
+			    else
+			    {
+			    	CustomMessage customMessage = new CustomMessage();
+					customMessage.setUserMessage("Some problem occured. Please check with application log.");
+					request.setAttribute("UserMessage", customMessage);
+					request.getRequestDispatcher("AddEmployee").forward(request, response);
+			    }
+					
 		}
 		else
 		{
