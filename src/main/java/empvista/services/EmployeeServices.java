@@ -246,7 +246,7 @@ public class EmployeeServices {
 	        insertEmergencyContact(con, nextEmpId, contact);
 
 	        // 3. Insert Work Hours
-	        insertWorkHours(con, nextEmpId, emp.getWorkFrom(), emp.getWorkTo());
+	        insertWorkHours(con, nextEmpId, emp.getWorkingfrom(), emp.getWorkingto()); 
 
 	        // 4. Insert Benefits (loop since it's array-like)
 	        insertBenefits(con, nextEmpId, benefits);
@@ -278,15 +278,15 @@ public class EmployeeServices {
 	    try (PreparedStatement ps = con.prepareStatement(sql)) {
 	        ps.setInt(1, empId);
 	        ps.setString(2, emp.getName());
-	        ps.setInt(3, emp.getGender()); //To be implemented
+	        ps.setInt(3, emp.getGender()); //To be implemented -- I need to enter it in the other table then from there need to fetch the Department ID
 	        ps.setString(4, emp.getDob());
 	        ps.setString(5, emp.getEmail_id());
 	        ps.setString(6, emp.getPhone_number());
-	        ps.setInt(7, emp.getJob_title()); //To be implemented
+	        ps.setInt(7, emp.getJob_title()); //To be implemented - Same as that
 	        ps.setString(8, emp.getHire_date());
 	        
-	        ps.setInt(9, emp.getDepartment()); //To be implemented
-	        ps.setInt(10, emp.getEmployee_type()); //To be implemented
+	        ps.setInt(9, emp.getDepartment()); //To be implemented - Same as that
+	        ps.setInt(10, emp.getEmployee_type()); //To be implemented - Same as that
 	       
 	       
 	        ps.executeUpdate();
