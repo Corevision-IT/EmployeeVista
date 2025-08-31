@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import empvista.entities.Benefits_Enrollment;
 import empvista.entities.Department;
+import empvista.entities.Emergency_Contacts;
+import empvista.entities.EmpAddress;
 import empvista.entities.Employee;
 import empvista.entities.Job_Types;
 import empvista.entities.Job_titles;
@@ -216,70 +219,128 @@ public class EmployeeServices {
 		return jtypeList;
 	}
 
-	public static boolean insertEmployee(Employee emp) {
-		
-		String sqlGetMaxEmpId = "SELECT max(employee_id) empId FROM employee_data.employees";
-		
-		int nextEmpId = 0;
-		
-		DBConnector dBConnector = DBConnector.getInstance();
-		
-		Connection con = dBConnector.getConnection();
-		try {
-			con.setAutoCommit(false);
-			
-			PreparedStatement stmt = con.prepareStatement(sqlGetMaxEmpId);
-			
-			ResultSet rs = stmt.executeQuery();
-			
-			int maxtEmpId = rs.getInt("empId");
-			
-			
-			nextEmpId = maxtEmpId+1;
-			
-			//Write the SQL for insertEmployee
-			
-			
-			
-			//then insert  emmegency contact
-			
-			
-			//insert work hours
-			
-			
-			
-			//insert benefits
-			
-			
-			
-			//insert address 
-			
-			
-			
-			//if everything goes well then use commit;
-			
-			//commit=true;
-			
-			con.setAutoCommit(true);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-			//rollback;
-			try {
-				con.setAutoCommit(true);
-				
-			} catch (SQLException e1) {
-				 
-				e1.printStackTrace();
-			}
-		}
-		
-		return false;
+	public static boolean insertEmployee(Employee emp, Emergency_Contacts contact, Benefits_Enrollment benefits, EmpAddress address) {
+	    DBConnector dBConnector = DBConnector.getInstance();
+	    Connection con = dBConnector.getConnection();
+
+	    String sqlGetMaxEmpId = "SELECT MAX(employee_id) AS empId FROM employees";
+
+	    try {
+	        con.setAutoCommit(false);
+
+	        // Get next employee_id
+	        int nextEmpId = 0;
+	        try (PreparedStatement stmt = con.prepareStatement(sqlGetMaxEmpId);
+	             ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                nextEmpId = rs.getInt("empId") + 1;
+	            } else {
+	                nextEmpId = 1; // first entry
+	            }
+	        }
+
+	        // 1. Insert Employee
+	        insertEmployeeData(con, nextEmpId, emp);
+
+	        // 2. Insert Emergency Contact
+	        insertEmergencyContact(con, nextEmpId, contact);
+
+	        // 3. Insert Work Hours
+	        insertWorkHours(con, nextEmpId, emp.getWorkFrom(), emp.getWorkTo());
+
+	        // 4. Insert Benefits (loop since it's array-like)
+	        insertBenefits(con, nextEmpId, benefits);
+
+	        // 5. Insert Address
+	        insertAddress(con, nextEmpId, address);
+
+	        con.commit();
+	        con.setAutoCommit(true);
+	        return true;
+
+	    } catch (SQLException e) {
+	        try {
+	            con.rollback();
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 
 	
-	
-	
+
+	private static void insertEmployeeData(Connection con, int empId, Employee emp) throws SQLException {
+	    String sql = "INSERT INTO employees (employee_id, name, gender_id, dob, email_id, phone_number, job_title_id, " +
+	                 "hire_date, department_id, employee_type_id) " +
+	                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	    try (PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, empId);
+	        ps.setString(2, emp.getName());
+	        ps.setInt(3, emp.getGender()); //To be implemented
+	        ps.setString(4, emp.getDob());
+	        ps.setString(5, emp.getEmail_id());
+	        ps.setString(6, emp.getPhone_number());
+	        ps.setInt(7, emp.getJob_title()); //To be implemented
+	        ps.setString(8, emp.getHire_date());
+	        
+	        ps.setInt(9, emp.getDepartment()); //To be implemented
+	        ps.setInt(10, emp.getEmployee_type()); //To be implemented
+	       
+	       
+	        ps.executeUpdate();
+	    }
+	}
+
+	private static void insertEmergencyContact(Connection con, int empId, Emergency_Contacts contact) throws SQLException {
+	    String sql = "INSERT INTO emergency_contacts (employee_id, phone, name, relationship) VALUES (?, ?, ?, ?)";
+	    try (PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, empId);
+	        ps.setString(2, contact.getContact_number());
+	        ps.setString(3, contact.getContact_name());
+	        ps.setString(4, contact.getRelationship());
+	        ps.executeUpdate();
+	    }
+	}
+
+	private static void insertWorkHours(Connection con, int empId, String from, String to) throws SQLException {
+	    String sql = "INSERT INTO work_hours (employee_id, workingfrom, workingto) VALUES (?, ?, ?)";
+	    try (PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, empId);
+	        ps.setString(2, from);
+	        ps.setString(3, to);
+	        ps.executeUpdate();
+	    }
+	}
+
+	private static void insertBenefits(Connection con, int empId, Benefits_Enrollment benefits) throws SQLException {
+	    String sql = "INSERT INTO benefits_enrollment (employee_id, medical_insurance, provident_fund, life_insurabce) " +
+	                 "VALUES (?, ?, ?, ?)";
+	    try (PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, empId);
+
+	        // Insert 1 or 0 depending on selection
+	        ps.setInt(2, (benefits.getMedical_insurance() != null && benefits.getMedical_insurance().equals("1")) ? 1 : 0);
+	        ps.setInt(3, (benefits.getProvident_fund() != null && benefits.getProvident_fund().equals("1")) ? 1 : 0);
+	        ps.setInt(4, (benefits.getLife_insurabce() != null && benefits.getLife_insurabce().equals("1")) ? 1 : 0);
+
+	        ps.executeUpdate();
+	    }
+	}
+
+	private static void insertAddress(Connection con, int empId, EmpAddress address) throws SQLException {
+	    String sql = "INSERT INTO emp_address (employee_id, addressLine1, addressLine2, city, state, country, zipCode) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	    try (PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, empId);
+	        ps.setString(2, address.getAddress_line_1());
+	        ps.setString(3, address.getAddress_line_2());
+	        ps.setString(4, address.getCity());
+	        ps.setString(5, address.getState());
+	        ps.setString(6, address.getCountry());
+	        ps.setString(7, address.getZip_code());
+	        ps.executeUpdate();
+	    }
+	}
+
 }

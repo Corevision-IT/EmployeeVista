@@ -8,19 +8,17 @@
 <%@ page import="empvista.entities.Menu"%>
 <%@ page import="empvista.entities.CustomMessage"%>
 <%
-	User user = (User) request.getSession().getAttribute("USER"); // type casting
-	String userName = user.getUserName();
-	String profilePic = user.getProfilePicName();
-	String roleName= user.getRoleName();
-	ArrayList menuList=(ArrayList)request.getSession().getAttribute("MenuList");
-	ListIterator<Menu> listIteratorMenu = menuList.listIterator();
-	CustomMessage customMessage = (CustomMessage)request.getAttribute("UserMessage");
-	String msg = "";
-	if(customMessage != null)
-	{
-		 msg = customMessage.getUserMessage();
-	}
-	
+User user = (User) request.getSession().getAttribute("USER"); // type casting
+String userName = user.getUserName();
+String profilePic = user.getProfilePicName();
+String roleName = user.getRoleName();
+ArrayList menuList = (ArrayList) request.getSession().getAttribute("MenuList");
+ListIterator<Menu> listIteratorMenu = menuList.listIterator();
+CustomMessage customMessage = (CustomMessage) request.getAttribute("UserMessage");
+String msg = "";
+if (customMessage != null) {
+	msg = customMessage.getUserMessage();
+}
 %>
 
 
@@ -263,8 +261,8 @@
 			<!-- end of menu.jsp -->
 			<!-- partial -->
 			<%@ include file="addEmployee.jsp"%>
-			
-			
+
+
 		</div>
 		<!-- page-body-wrapper ends -->
 	</div>
@@ -287,24 +285,131 @@
 	<!-- Custom js for this page -->
 	<script src="assets/js/dashboard.js"></script>
 	<!-- End custom js for this page -->
-	<script type="text/javascript">
-	
-		function showMessage(msg){
-			
-			if(msg==null)
-				{
-					// do nothing
-				}
-			else
-				{
-				
-					confirm(msg);
-					
-				}
-			
-			
-		}
-	
-	</script>
+
+	<!-- Custom Confirm Modal -->
+	<div id="customConfirm" class="custom-confirm-overlay">
+		<div class="custom-confirm-box">
+			<h3>Are you sure? </h3>
+			<p>This action cannot be undone. Do you really want to continue?</p>
+			<div class="custom-confirm-actions">
+				<button id="confirmYes">Yes</button>
+				<button id="confirmNo">Cancel</button>
+			</div>
+		</div>
+	</div>
+
+	<style>
+.custom-confirm-overlay {
+	display: none;
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(3px);
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+}
+
+.custom-confirm-box {
+	background: #fff;
+	padding: 20px 25px;
+	border-radius: 12px;
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+	width: 350px;
+	max-width: 90%;
+	text-align: center;
+	font-family: "Segoe UI", sans-serif;
+	animation: popUp 0.3s ease-out;
+}
+
+.custom-confirm-box h3 {
+	margin-bottom: 10px;
+	color: #333;
+}
+
+.custom-confirm-box p {
+	font-size: 14px;
+	margin-bottom: 20px;
+	color: #666;
+}
+
+.custom-confirm-actions {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.custom-confirm-actions button {
+	padding: 8px 18px;
+	border-radius: 8px;
+	border: none;
+	font-size: 14px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+#confirmYes {
+	background: #28a745;
+	color: #fff;
+}
+
+#confirmYes:hover {
+	background: #218838;
+}
+
+#confirmNo {
+	background: #dc3545;
+	color: #fff;
+}
+
+#confirmNo:hover {
+	background: #c82333;
+}
+
+@
+keyframes popUp {from { transform:scale(0.8);
+	opacity: 0;
+}
+
+to {
+	transform: scale(1);
+	opacity: 1;
+}
+}
+</style>
+
+	<script>
+  // Override default confirm
+  function customConfirm(message, callback) {
+    const overlay = document.getElementById("customConfirm");
+    overlay.querySelector("p").innerText = message;
+    overlay.style.display = "flex";
+
+    const yesBtn = document.getElementById("confirmYes");
+    const noBtn = document.getElementById("confirmNo");
+
+    yesBtn.onclick = () => {
+      overlay.style.display = "none";
+      callback(true);
+    };
+    noBtn.onclick = () => {
+      overlay.style.display = "none";
+      callback(false);
+    };
+  }
+
+  // Example: replace your confirm() calls
+  function validateForm() {
+    customConfirm("Do you really want to submit this Employee form? ", function(result) {
+      if (result) {
+        document.getElementById("employeeForm").submit();
+      } else {
+        console.log("Submission cancelled ❌");
+      }
+    });
+    return false; // prevent default submit until confirm
+  }
+</script>
+
+
 </body>
 </html>

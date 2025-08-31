@@ -5,13 +5,12 @@
 <%@ page import="java.util.ListIterator"%>
 
 <%
-	ArrayList deptist = (ArrayList) request.getAttribute("DEPTLIST");
-	ListIterator<Department> listIteratorDept = deptist.listIterator();
-	ArrayList jtitleList = (ArrayList) request.getAttribute("TITLELIST");
-	ListIterator<Job_titles> listIteratortitle = jtitleList.listIterator();
-	ArrayList jtypeList = (ArrayList) request.getAttribute("TYPELIST");
-	ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
-	
+ArrayList deptist = (ArrayList) request.getAttribute("DEPTLIST");
+ListIterator<Department> listIteratorDept = deptist.listIterator();
+ArrayList jtitleList = (ArrayList) request.getAttribute("TITLELIST");
+ListIterator<Job_titles> listIteratortitle = jtitleList.listIterator();
+ArrayList jtypeList = (ArrayList) request.getAttribute("TYPELIST");
+ListIterator<Job_Types> listIteratortype = jtypeList.listIterator();
 %>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -356,98 +355,77 @@
 </div>
 
 <script>
-
 function loadManagers(deptId) { 
- //$("#managerList").load('managerList.jsp'); 
- //AJAX - asynchronous java script 
- $.ajax(
-			 { url: 'LoadManagers', // The URL pattern of your servlet 
-				type: 'GET', data: { deptId: deptId }, // Optional: send data to servlet 
-				success: function(response)
-					{ 
-						$('#managerList').html(response); // Inject the JSP fragment into the div 
-					}, 
-				error: function(xhr, status, error)
-				{ 
-					console.error("Error loading JSP fragment:", error); 
-				} 
-			}
- 		); 
- }
+ $.ajax({
+     url: 'LoadManagers',
+     type: 'GET',
+     data: { deptId: deptId },
+     success: function(response) { 
+         $('#managerList').html(response); 
+     }, 
+     error: function(xhr, status, error) { 
+         console.error("Error loading JSP fragment:", error); 
+     } 
+ });
+}
 
+// ✅ Add Another Emergency Contact (with Relationship)
 function addEmergencyContact() {
     const container = document.getElementById('emergencyContacts');
     const div = document.createElement('div');
     div.className = 'row g-3 mb-2 emergency-contact';
     div.innerHTML = `
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-floating">
           <input name="emergencyPhone" type="tel" class="form-control" placeholder="Phone">
           <label>Emergency Contact Phone</label>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-floating">
           <input name="emergencyName" type="text" class="form-control" placeholder="Name">
           <label>Emergency Contact Name</label>
         </div>
-      </div>`;
-    container.appendChild(div);
-}
-
-function addCertification() {
-    const container = document.getElementById('certifications');
-    const div = document.createElement('div');
-    div.className = 'row g-3 mb-2 certification';
-    div.innerHTML = `
-      <div class="col-md-4">
-        <div class="form-floating">
-          <input name="certificateName" type="text" class="form-control" placeholder="Certificate Name">
-          <label>Certificate Name</label>
-        </div>
       </div>
       <div class="col-md-4">
         <div class="form-floating">
-          <input name="certificateAuthority" type="text" class="form-control" placeholder="Issued By">
-          <label>Certificate Authority</label>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-floating">
-          <input name="certificateYear" type="number" class="form-control" placeholder="2023" min="1900" max="2099">
-          <label>Year</label>
+          <input name="emergencyRelation" type="text" class="form-control" placeholder="Relationship">
+          <label>Relationship</label>
         </div>
       </div>`;
     container.appendChild(div);
 }
 
-function addSkill() {
-    const container = document.getElementById('skills');
-    const div = document.createElement('div');
-    div.className = 'row g-3 mb-2 skill';
-    div.innerHTML = `
-        <div class="col-md-6">
-            <div class="form-floating">
-                <input name="skillName" type="text" class="form-control" placeholder="Skill Name">
-                <label>Skill Name</label>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-floating">
-                <select name="proficiency" class="form-select">
-                    <option value="" disabled selected>Select Proficiency</option>
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Advanced">Advanced</option>
-                    <option value="Expert">Expert</option>
-                </select>
-                <label>Proficiency Level</label>
-            </div>
-        </div>`;
-    container.appendChild(div);
+// ✅ DOB & Hiring Date Validation
+function validateDates() {
+    const dob = document.getElementById("floatingDOB").value;
+    const hireDate = document.getElementById("floatingHireDate").value;
+    const today = new Date();
+
+    if (dob) {
+        const dobDate = new Date(dob);
+        const age = today.getFullYear() - dobDate.getFullYear();
+        const m = today.getMonth() - dobDate.getMonth();
+        const adjustedAge = (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) ? age - 1 : age;
+
+        if (adjustedAge < 24) {
+            alert("Employee must be at least 24 years old.");
+            return false;
+        }
+    }
+
+    if (hireDate) {
+        const hire = new Date(hireDate);
+        if (hire > today) {
+            alert("Hiring date cannot be in the future.");
+            return false;
+        }
+    }
+
+    return true;
 }
 
-//Collect Certifications
+// Collect Certifications
 function prepareCertifications() {
     let certs = [];
     document.querySelectorAll('#certifications .certification').forEach(row => {
@@ -458,9 +436,7 @@ function prepareCertifications() {
             certs.push(name + "," + authority + "," + year);
         }
     });
-    
     document.getElementById("hdnCertifications").value = certs.join(";");
-    //alert(certs.join(" "));
 }
 
 // Collect Skills
@@ -473,12 +449,8 @@ function prepareSkills() {
             skills.push(skillName + "," + proficiency);
         }
     });
-    
     document.getElementById("hdnSkills").value = skills.join(";");
-    //alert(skills.join(" "));
 }
-
-
 
 // Collect Contacts
 function prepareContacts() {
@@ -491,19 +463,15 @@ function prepareContacts() {
             contacts.push(phone + "," + name + "," + relation);
         }
     });
-    
     document.getElementById("hdnContacts").value = contacts.join(";");
-    //alert(contacts.join(" "));
-}
-
-function printBenefits(){
-	document.getElementByID("benefits");
 }
 
 // Call all before submit
 function prepareAll() {
+    if (!validateDates()) return false; // ✅ Prevent submit if invalid
     prepareSkills();
     prepareCertifications();
     prepareContacts();
+    return true;
 }
 </script>
