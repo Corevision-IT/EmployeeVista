@@ -222,7 +222,59 @@ public class EmployeeServices {
 		
 		int nextEmpId = 0;
 		
+		DBConnector dBConnector = DBConnector.getInstance();
 		
+		Connection con = dBConnector.getConnection();
+		try {
+			con.setAutoCommit(false);
+			
+			PreparedStatement stmt = con.prepareStatement(sqlGetMaxEmpId);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			int maxtEmpId = rs.getInt("empId");
+			
+			
+			nextEmpId = maxtEmpId+1;
+			
+			//Write the SQL for insertEmployee
+			
+			
+			
+			//then insert  emmegency contact
+			
+			
+			//insert work hours
+			
+			
+			
+			//insert benefits
+			
+			
+			
+			//insert address 
+			
+			
+			
+			//if everything goes well then use commit;
+			
+			//commit=true;
+			
+			con.setAutoCommit(true);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			//rollback;
+			try {
+				con.setAutoCommit(true);
+				
+			} catch (SQLException e1) {
+				 
+				e1.printStackTrace();
+			}
+		}
 		
 		return false;
 	}
